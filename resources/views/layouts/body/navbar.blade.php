@@ -82,7 +82,7 @@
             align-items: center;
             justify-content: center;
             padding: 0 2rem;
-            background: #fff; /* Ubah dari var(--accent-gradient) menjadi putih */
+            background: #fff;
             position: relative;
             overflow: hidden;
         }
@@ -102,9 +102,6 @@
             left: 100%;
         }
 
-        .sidebar-logo img {
-        }
-
         .sidebar-logo:hover img {
             transform: scale(1.05);
         }
@@ -114,26 +111,25 @@
             padding: 1.5rem 1rem;
         }
 
-       .sidebar .nav-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem; /* Jarak antara ikon dan teks */
-    padding: 0.85rem 1.5rem;
-    margin-bottom: 0.5rem;
-    border-radius: 16px;
-    color: var(--sidebar-text);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem; /* Sedikit lebih besar agar mudah dibaca */
-    transition: var(--transition-smooth);
-    border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    white-space: nowrap; /* Agar tidak turun ke bawah */
-}
+        .sidebar .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 16px;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            white-space: nowrap;
+        }
 
-        /* Subtle gradient overlay */
         .sidebar .nav-link::before {
             content: '';
             position: absolute;
@@ -146,7 +142,6 @@
             transition: var(--transition-smooth);
         }
 
-        /* Hover effects */
         .sidebar .nav-link:hover {
             background: var(--sidebar-hover);
             color: var(--sidebar-text-active);
@@ -159,7 +154,6 @@
             opacity: 1;
         }
 
-        /* Active state */
         .sidebar .nav-link.active {
             background: var(--sidebar-active);
             color: var(--sidebar-text-active);
@@ -181,17 +175,17 @@
             box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
         }
 
-       .sidebar .nav-link .icon {
-    margin-right: 0;
-    width: 22px;
-    height: 22px;
-    opacity: 0.8;
-    transition: var(--transition-smooth);
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .sidebar .nav-link .icon {
+            margin-right: 0;
+            width: 22px;
+            height: 22px;
+            opacity: 0.8;
+            transition: var(--transition-smooth);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         .sidebar .nav-link:hover .icon,
         .sidebar .nav-link.active .icon {
@@ -199,7 +193,6 @@
             transform: scale(1.1);
         }
 
-        /* Dropdown Indicator */
         .sidebar .nav-link.has-dropdown {
             justify-content: space-between;
         }
@@ -225,7 +218,6 @@
             opacity: 1;
         }
 
-        /* Dropdown Badge */
         .sidebar .nav-link.has-dropdown .dropdown-badge {
             margin-left: auto;
             margin-right: 0.5rem;
@@ -243,7 +235,6 @@
             transform: scale(1.05);
         }
 
-        /* Dropdown Menu Styles */
         .sidebar .dropdown-menu {
             margin-top: 0.5rem;
             margin-left: 0;
@@ -324,6 +315,7 @@
             min-height: 100vh;
         }
 
+        /* Modern Navbar with User Profile */
         .navbar {
             position: fixed;
             top: 0;
@@ -335,11 +327,209 @@
             backdrop-filter: blur(20px);
             background: rgba(255, 255, 255, 0.95);
             border-bottom: 1px solid var(--sidebar-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
         }
 
-        main {
-            padding: calc(var(--header-height) + 2rem) 2rem 2rem 2rem;
-            overflow-x: auto;
+        /* Navbar Title */
+        .navbar-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar-title .icon-wrapper {
+            padding: 0.75rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .navbar-title h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-title .subtitle {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* User Profile Dropdown */
+        .user-dropdown {
+            position: relative;
+        }
+
+        .user-dropdown .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(59, 130, 246, 0.1);
+            text-decoration: none;
+            color: #334155;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .user-dropdown .dropdown-toggle:hover {
+            background: rgba(59, 130, 246, 0.05);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #1e40af;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .user-avatar::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            background: #10b981;
+            border: 2px solid white;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .user-info h6 {
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1e293b;
+            text-transform: capitalize;
+        }
+
+        .user-info small {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .dropdown-arrow {
+            font-size: 0.7rem;
+            opacity: 0.6;
+            transition: var(--transition-smooth);
+        }
+
+        .user-dropdown:hover .dropdown-arrow {
+            opacity: 1;
+            transform: rotate(180deg);
+        }
+
+        /* Enhanced Dropdown Menu */
+        .user-dropdown .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            min-width: 280px;
+            background: white;
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+            z-index: 1050;
+        }
+
+        .user-dropdown.show .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .dropdown-menu .user-header {
+            padding: 1rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .dropdown-menu .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            border-radius: 12px;
+            color: #374151;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            margin-bottom: 0.5rem;
+            border: 1px solid transparent;
+        }
+
+        .dropdown-menu .dropdown-item:hover {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            transform: translateX(8px) scale(1.02);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+
+        .dropdown-menu .dropdown-item.logout:hover {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        }
+
+        .dropdown-menu .dropdown-item .icon-wrapper {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(59, 130, 246, 0.1);
+            transition: var(--transition-smooth);
+        }
+
+        .dropdown-menu .dropdown-item:hover .icon-wrapper {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .dropdown-menu .dropdown-item.logout .icon-wrapper {
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .sidebar .nav-link span {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
         }
 
         /* Mobile Toggle Button */
@@ -397,7 +587,27 @@
             }
         }
 
-        /* Enhanced animations */
+        main {
+            padding: calc(var(--header-height) + 2rem) 2rem 2rem 2rem;
+            overflow-x: auto;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
         .sidebar .nav-link {
             animation: fadeInUp 0.6s ease forwards;
             opacity: 0;
@@ -420,7 +630,6 @@
             }
         }
 
-        /* Loading animation for sidebar */
         .sidebar::after {
             content: '';
             position: absolute;
@@ -442,7 +651,6 @@
             }
         }
 
-        /* Overlay for mobile */
         .sidebar-overlay {
             display: none;
             position: fixed;
@@ -467,7 +675,6 @@
             }
         }
 
-        /* Micro interactions */
         .sidebar .nav-link:active {
             transform: translateX(4px) scale(0.98);
         }
@@ -476,22 +683,11 @@
             transform: translateX(4px) scale(0.98);
         }
 
-        /* Focus states for accessibility */
         .sidebar .nav-link:focus,
         .sidebar .dropdown-item:focus {
             outline: 2px solid var(--accent-color);
             outline-offset: 2px;
         }
-        
-    .sidebar .nav-link span {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    min-width: 0;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-}
     </style>
 
     @stack('page-styles')
@@ -530,162 +726,100 @@
             </a>
 
             <!-- Aset Dropdown -->
-<div class="nav-item">
-    <a class="nav-link has-dropdown {{ request()->is('asets*', 'aset-lancar*') ? 'active' : '' }}" 
-       href="#" 
-       onclick="toggleDropdown(event, 'asetDropdown')" 
-       aria-expanded="false"
-       role="button">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22" viewBox="0 0 24 24"
-             stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M3 7v4a1 1 0 0 0 1 1h3"/>
-            <path d="M7 7v10"/>
-            <path d="M10 8v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1 -1v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1z"/>
-            <path d="M17 7v4a1 1 0 0 0 1 1h3"/>
-            <path d="M21 7v10"/>
-            <path d="M22 7h-2l-2 -2h-6l-2 2h-2"/>
-        </svg>
-       <span>{{ __('Aset') }}</span>
-    </a>
-    <div class="dropdown-menu" id="asetDropdown">
-        <a class="dropdown-item {{ request()->is('asets*') ? 'active' : '' }}" href="{{ route('asets.index') }}">Aset Tetap</a>
-        <a class="dropdown-item {{ request()->is('aset-lancars*') ? 'active' : '' }}" href="{{ route('aset-lancars.index') }}">Aset Lancar</a>
-    </div>
-</div>
-
-            {{-- <!-- Produk -->
-            <a class="nav-link {{ request()->is('products*') ? 'active' : '' }}" href="{{ route('products.index') }}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22" viewBox="0 0 24 24"
-                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M7 16.5l-5 -3l5 -3l5 3v5.5l-5 3z"/>
-                    <path d="M2 13.5v5.5l5 3"/>
-                    <path d="M7 16.545l5 -3.03"/>
-                    <path d="M17 16.5l-5 -3l5 -3l5 3v5.5l-5 3z"/>
-                    <path d="M12 19l5 3"/>
-                    <path d="M17 16.5l5 -3"/>
-                    <path d="M12 13.5v-5.5l-5 -3l5 -3l5 3v5.5"/>
-                    <path d="M7 5.03v5.455"/>
-                    <path d="M12 8l5 -3"/>
-                </svg>
-                <span>{{ __('Produk') }}</span>
-            </a>
-
-            <!-- Pesanan Dropdown -->
             <div class="nav-item">
-                <a class="nav-link has-dropdown {{ request()->is('orders*') ? 'active' : '' }}" 
+                <a class="nav-link has-dropdown {{ request()->is('asets*', 'aset-lancar*') ? 'active' : '' }}" 
                    href="#" 
-                   onclick="toggleDropdown(event, 'pesananDropdown')" 
+                   onclick="toggleDropdown(event, 'asetDropdown')" 
                    aria-expanded="false"
                    role="button">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22" viewBox="0 0 24 24"
                          stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M12 21l-8 -4.5v-9l8 -4.5l8 4.5v4.5"/>
-                        <path d="M12 12l8 -4.5"/>
-                        <path d="M12 12v9"/>
-                        <path d="M12 12l-8 -4.5"/>
-                        <path d="M15 18h7"/>
-                        <path d="M19 15l3 3l-3 3"/>
+                        <path d="M3 7v4a1 1 0 0 0 1 1h3"/>
+                        <path d="M7 7v10"/>
+                        <path d="M10 8v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1 -1v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1z"/>
+                        <path d="M17 7v4a1 1 0 0 0 1 1h3"/>
+                        <path d="M21 7v10"/>
+                        <path d="M22 7h-2l-2 -2h-6l-2 2h-2"/>
                     </svg>
-                    <span>{{ __('Pesanan') }}</span>
+                   <span>{{ __('Aset') }}</span>
                 </a>
-                <div class="dropdown-menu" id="pesananDropdown">
-                    <a class="dropdown-item" href="{{ route('orders.index') }}">Semua</a>
-                    <a class="dropdown-item" href="{{ route('orders.complete') }}">Selesai</a>
-                    <a class="dropdown-item" href="{{ route('orders.pending') }}">Tunggu</a>
-                    <a class="dropdown-item" href="{{ route('due.index') }}">Karena</a>
+                <div class="dropdown-menu" id="asetDropdown">
+                    <a class="dropdown-item {{ request()->is('asets*') ? 'active' : '' }}" href="{{ route('asets.index') }}">Aset Tetap</a>
+                    <a class="dropdown-item {{ request()->is('aset-lancars*') ? 'active' : '' }}" href="{{ route('aset-lancars.index') }}">Aset Lancar</a>
                 </div>
             </div>
-
-            <!-- Pembelian Dropdown -->
-            <div class="nav-item">
-                <a class="nav-link has-dropdown {{ request()->is('purchases*') ? 'active' : '' }}" 
-                   href="#" 
-                   onclick="toggleDropdown(event, 'pembelianDropdown')" 
-                   aria-expanded="false"
-                   role="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22" viewBox="0 0 24 24"
-                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M12 21l-8 -4.5v-9l8 -4.5l8 4.5v4.5"/>
-                        <path d="M12 12l8 -4.5"/>
-                        <path d="M12 12v9"/>
-                        <path d="M12 12l-8 -4.5"/>
-                        <path d="M22 18h-7"/>
-                        <path d="M18 15l-3 3l3 3"/>
-                    </svg>
-                    <span>{{ __('Pembelian') }}</span>
-                </a>
-                <div class="dropdown-menu" id="pembelianDropdown">
-                    <a class="dropdown-item" href="{{ route('purchases.index') }}">Semua</a>
-                    <a class="dropdown-item" href="{{ route('purchases.approvedPurchases') }}">Persetujuan</a>
-                    <a class="dropdown-item" href="{{ route('purchases.dailyPurchaseReport') }}">Laporan pembelian harian</a>
-                </div>
-            </div>
-
-            <!-- Kutipan -->
-            <a class="nav-link {{ request()->is('quotations') ? 'active' : '' }}" href="{{ route('quotations.index') }}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22" viewBox="0 0 24 24"
-                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
-                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/>
-                </svg>
-                <span>{{ __('Kutipan') }}</span>
-            </a>
-
-            <!-- Halaman Dropdown -->
-            <div class="nav-item">
-                <a class="nav-link has-dropdown {{ request()->is('suppliers*', 'customers*') ? 'active' : '' }}" 
-                   href="#" 
-                   onclick="toggleDropdown(event, 'halamanDropdown')" 
-                   aria-expanded="false"
-                   role="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22" viewBox="0 0 24 24"
-                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M8 4m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"/>
-                        <path d="M16 16v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h2"/>
-                    </svg>
-                    <span>{{ __('Halaman') }}</span>
-                </a>
-                <div class="dropdown-menu" id="halamanDropdown">
-                    <a class="dropdown-item" href="{{ route('suppliers.index') }}">Pemasok</a>
-                    <a class="dropdown-item" href="{{ route('customers.index') }}">Pelanggan</a>
-                </div>
-            </div>
-
-            <!-- Pengaturan Dropdown -->
-            <div class="nav-item">
-                <a class="nav-link has-dropdown {{ request()->is('users*', 'categories*', 'units*') ? 'active' : '' }}" 
-                   href="#" 
-                   onclick="toggleDropdown(event, 'pengaturanDropdown')" 
-                   aria-expanded="false"
-                   role="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22" viewBox="0 0 24 24"
-                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066
-                            c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426
-                            1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724
-                            1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066
-                            c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572
-                            c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573
-                            c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"/>
-                        <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/>
-                    </svg>
-                    <span>{{ __('Pengaturan') }}</span>
-                </a>
-                <div class="dropdown-menu" id="pengaturanDropdown">
-                    <a class="dropdown-item" href="{{ route('users.index') }}">Pengguna</a>
-                    <a class="dropdown-item" href="{{ route('categories.index') }}">Kategori</a>
-                    <a class="dropdown-item" href="{{ route('units.index') }}">Unit</a>
-                </div>
-            </div> --}}
         </nav>
     </div>
-    {{-- Header --}}
-    @include('layouts.body.header')
+
+    {{-- Modern Navbar with User Profile --}}
+    <nav class="navbar">
+        <!-- Left: System Title -->
+        <div class="navbar-title">
+            <div class="icon-wrapper">
+                <i class="fas fa-laptop-code text-white" style="font-size: 1.2rem;"></i>
+            </div>
+            <div>
+                <h1>SIADEKOM</h1>
+                <div class="subtitle">Sistem Informasi Aset Diskominfo</div>
+            </div>
+        </div>
+
+        <!-- Right: User Profile Dropdown -->
+        <div class="user-dropdown" onclick="toggleUserDropdown()">
+            <a href="#" class="dropdown-toggle">
+                <div class="user-avatar">
+                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                </div>
+                <div class="user-info">
+                    <h6>{{ Auth::user()->name }}</h6>
+                    <small>Administrator</small>
+                </div>
+                <i class="fas fa-chevron-down dropdown-arrow"></i>
+            </a>
+            
+            <div class="dropdown-menu">
+                <!-- User Header -->
+                <div class="user-header">
+                    <div class="d-flex align-items-center">
+                        <div class="user-avatar me-3" style="width: 50px; height: 50px;">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </div>
+                        <div>
+                            <h6 class="mb-1 text-white">{{ Auth::user()->name }}</h6>
+                            <small class="text-white-50">Administrator</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu Items -->
+                <a href="{{ route('profile.edit') }}" class="dropdown-item">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-user-cog" style="color: #3b82f6;"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 500;">Kelola Akun</div>
+                        <small style="color: #6b7280;">Pengaturan profil</small>
+                    </div>
+                </a>
+
+                <div style="border-top: 1px solid #e5e7eb; margin: 0.75rem 0;"></div>
+
+                <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+                    @csrf
+                    <button type="submit" class="dropdown-item logout w-100 border-0 bg-transparent text-start">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-sign-out-alt" style="color: #dc2626;"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight: 500;">Keluar</div>
+                            <small style="color: #6b7280;">Logout sistem</small>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
 
     {{-- Main Content --}}
     <div class="main-content">
@@ -726,7 +860,7 @@
         }
 
         function closeAllDropdowns(exceptId = null) {
-            const allDropdowns = document.querySelectorAll('.dropdown-menu');
+            const allDropdowns = document.querySelectorAll('.sidebar .dropdown-menu');
             const allToggles = document.querySelectorAll('.has-dropdown');
             
             allDropdowns.forEach((dropdown, index) => {
@@ -739,6 +873,29 @@
                 }
             });
         }
+
+        // User dropdown functionality
+        function toggleUserDropdown() {
+            const userDropdown = document.querySelector('.user-dropdown');
+            const isOpen = userDropdown.classList.contains('show');
+            
+            // Close all user dropdowns first
+            document.querySelectorAll('.user-dropdown').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+            
+            if (!isOpen) {
+                userDropdown.classList.add('show');
+            }
+        }
+
+        // Close user dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const userDropdown = document.querySelector('.user-dropdown');
+            if (!userDropdown.contains(event.target)) {
+                userDropdown.classList.remove('show');
+            }
+        });
 
         // Mobile sidebar functionality
         function toggleSidebar() {
@@ -760,9 +917,10 @@
         // Close dropdowns when clicking outside
         document.addEventListener('click', function(event) {
             const isDropdownToggle = event.target.closest('.has-dropdown');
-            const isDropdownContent = event.target.closest('.dropdown-menu');
+            const isDropdownContent = event.target.closest('.sidebar .dropdown-menu');
+            const isUserDropdown = event.target.closest('.user-dropdown');
             
-            if (!isDropdownToggle && !isDropdownContent) {
+            if (!isDropdownToggle && !isDropdownContent && !isUserDropdown) {
                 closeAllDropdowns();
             }
         });
@@ -794,6 +952,7 @@
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeAllDropdowns();
+                document.querySelector('.user-dropdown').classList.remove('show');
                 
                 if (window.innerWidth <= 768) {
                     closeSidebar();
@@ -804,7 +963,7 @@
         // Initialize dropdowns on page load
         document.addEventListener('DOMContentLoaded', function() {
             // Set initial max-height for all dropdown menus
-            const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+            const dropdownMenus = document.querySelectorAll('.sidebar .dropdown-menu');
             dropdownMenus.forEach(menu => {
                 menu.style.maxHeight = '0px';
             });
@@ -812,15 +971,21 @@
             // Auto-expand active dropdowns
             const activeLinks = document.querySelectorAll('.nav-link.active.has-dropdown');
             activeLinks.forEach(link => {
-                const dropdownId = link.getAttribute('onclick').match(/toggleDropdown\(event, '(.+?)'\)/)[1];
-                const dropdown = document.getElementById(dropdownId);
-                
-                if (dropdown) {
-                    dropdown.classList.add('show');
-                    link.setAttribute('aria-expanded', 'true');
-                    setTimeout(() => {
-                        dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
-                    }, 100);
+                const onclickAttr = link.getAttribute('onclick');
+                if (onclickAttr) {
+                    const match = onclickAttr.match(/toggleDropdown\(event, '(.+?)'\)/);
+                    if (match) {
+                        const dropdownId = match[1];
+                        const dropdown = document.getElementById(dropdownId);
+                        
+                        if (dropdown) {
+                            dropdown.classList.add('show');
+                            link.setAttribute('aria-expanded', 'true');
+                            setTimeout(() => {
+                                dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
+                            }, 100);
+                        }
+                    }
                 }
             });
 
@@ -869,6 +1034,11 @@
         } else {
             preloadImages();
         }
+
+        // Prevent dropdown toggle link default behavior
+        document.querySelector('.user-dropdown .dropdown-toggle').addEventListener('click', function(e) {
+            e.preventDefault();
+        });
     </script>
     @stack('page-scripts')
     @livewireScripts

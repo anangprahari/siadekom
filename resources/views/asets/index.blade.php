@@ -20,8 +20,8 @@
                             </div>
                         </div>
                         <div>
-                            <h2 class="page-title mb-0">Manajemen Aset</h2>
-                            <div class="text-muted mt-1">Kelola dan pantau seluruh aset Diskominfo</div>
+                            <h2 class="page-title mb-0">Manajemen Aset Tetap dan Lainnya</h2>
+                            <div class="text-muted mt-1">Kelola dan pantau seluruh aset tetap dan lainnya</div>
                         </div>
                     </div>
                 </div>
@@ -185,7 +185,17 @@
                                 </svg>
                                 Cari / Filter
                             </button>
-                            <a href="{{ route('asets.index') }}" class="btn btn-outline-blue w-100 fw-bold">Reset</a>
+                            <a href="{{ route('asets.index') }}" class="btn btn-outline-blue w-100 fw-bold">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon me-1" width="18" height="18"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path
+                                        d="M19 20h-10.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9.2 9.3">
+                                    </path>
+                                    <path d="M18 13.3l-6.3 -6.3"></path>
+                                </svg>
+                                Reset</a>
                         </div>
                     </div>
                 </form>
