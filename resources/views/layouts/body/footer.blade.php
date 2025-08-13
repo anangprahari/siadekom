@@ -25,28 +25,48 @@
 </footer>
 
 <style>
-/* CSS untuk Footer Fixed */
+/* CSS untuk Footer Fixed - PERBAIKAN */
 .fixed-footer {
     position: fixed;
     bottom: 0;
-    left: 200px; /* Sesuaikan dengan lebar sidebar */
+    left: var(--sidebar-width); /* Gunakan CSS variable yang konsisten (280px) */
     right: 0;
     background-color: #ffffff;
-    border-top: 1px solid #ddd;
-    padding: 1rem;
-    z-index: 1020;
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    border-top: 1px solid #e2e8f0;
+    padding: 1rem 2rem;
+    z-index: 1010; /* Lebih rendah dari navbar (1030) dan sidebar (1020) */
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+    transition: var(--transition-smooth);
+    backdrop-filter: blur(10px);
 }
 
 /* Responsive untuk mobile */
 @media (max-width: 768px) {
     .fixed-footer {
         left: 0;
+        padding: 1rem;
     }
 }
 
-/* Tambahkan padding-bottom pada body agar konten tidak tertutup footer */
-body {
-    padding-bottom: 80px;
+/* Tambahkan padding-bottom pada main-content agar tidak tertutup footer */
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 0;
+    transition: var(--transition-smooth);
+    min-height: 100vh;
+    padding-bottom: 100px; /* Tambahkan ini untuk ruang footer */
+}
+
+/* Pastikan main juga punya padding bottom */
+main {
+    padding: calc(var(--header-height) + 2rem) 2rem 6rem 2rem; /* Ubah padding bottom dari 2rem ke 6rem */
+    overflow-x: auto;
+}
+
+/* Mobile adjustment */
+@media (max-width: 768px) {
+    main {
+        padding: calc(var(--header-height) + 1rem) 1rem 6rem 1rem;
+    }
 }
 </style>

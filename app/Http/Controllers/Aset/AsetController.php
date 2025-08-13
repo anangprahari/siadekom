@@ -108,7 +108,7 @@ class AsetController extends Controller
                 'max:255',
                 function ($attribute, $value, $fail) use ($request) {
                     // PERBAIKAN: Untuk aset rusak berat, skip validasi uniqueness
-                    if ($request->keadaan_barang === 'Rusak Berat') {
+                    if ($request->keadaan_barang === 'RB') {
                         return; // Skip validasi untuk rusak berat
                     }
 
@@ -129,7 +129,7 @@ class AsetController extends Controller
             'tahun_perolehan' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
             'ukuran_barang_konstruksi' => 'nullable|string|max:255',
             'satuan' => 'required|string|max:100',
-            'keadaan_barang' => ['required', Rule::in(['Baik', 'Kurang Baik', 'Rusak Berat'])],
+            'keadaan_barang' => ['required', Rule::in(['B', 'KB', 'RB'])],
             'jumlah_barang' => 'required|integer|min:1|max:100',
             'harga_satuan' => 'required|numeric|min:0',
             'bukti_barang' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -154,7 +154,7 @@ class AsetController extends Controller
                 }
 
                 // **PERBAIKAN: Tentukan kode barang berdasarkan keadaan barang**
-                $finalKodeBarang = $validated['keadaan_barang'] === 'Rusak Berat'
+                $finalKodeBarang = $validated['keadaan_barang'] === 'RB'
                     ? $this->generateKodeBarangRusakBerat()
                     : $validated['kode_barang'];
 
@@ -212,7 +212,7 @@ class AsetController extends Controller
                     : "Aset berhasil ditambahkan dengan register: {$createdAssets[0]}";
 
                 // **PERBAIKAN: Tambahkan informasi jika status rusak berat**
-                if ($validated['keadaan_barang'] === 'Rusak Berat') {
+                if ($validated['keadaan_barang'] === 'RB') {
                     $message .= ". Kode barang telah diubah ke kategori Rusak Berat: {$finalKodeBarang}";
                 }
 
@@ -273,7 +273,7 @@ class AsetController extends Controller
             $keadaanBarang = $request->keadaan_barang;
 
             // PERBAIKAN: Untuk aset rusak berat, gunakan kode barang rusak berat
-            if ($keadaanBarang === 'Rusak Berat') {
+            if ($keadaanBarang === 'RB') {
                 $kodeBarang = $this->generateKodeBarangRusakBerat();
             }
 
@@ -291,7 +291,7 @@ class AsetController extends Controller
                 ($lastRegisterNumber > 0 ? str_pad($lastRegisterNumber, 3, '0', STR_PAD_LEFT) : 'Belum ada');
 
             // PERBAIKAN: Tambahkan info khusus untuk rusak berat
-            if ($keadaanBarang === 'Rusak Berat') {
+            if ($keadaanBarang === 'RB') {
                 $infoMessage .= " (Kategori: Rusak Berat - register boleh duplikat)";
             }
 
@@ -451,7 +451,7 @@ class AsetController extends Controller
                     'max:255',
                     function ($attribute, $value, $fail) use ($aset, $request) {
                         // PERBAIKAN: Untuk aset rusak berat, skip validasi uniqueness
-                        if ($request->keadaan_barang === 'Rusak Berat') {
+                        if ($request->keadaan_barang === 'RB') {
                             return; // Skip validasi untuk rusak berat
                         }
 
@@ -479,7 +479,7 @@ class AsetController extends Controller
                 'tahun_perolehan' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
                 'ukuran_barang_konstruksi' => 'nullable|string|max:255',
                 'satuan' => 'required|string|max:100',
-                'keadaan_barang' => ['required', Rule::in(['Baik', 'Kurang Baik', 'Rusak Berat'])],
+                'keadaan_barang' => ['required', Rule::in(['B', 'KB', 'RB'])],
                 'jumlah_barang' => 'required|integer|min:1|max:100',
                 'harga_satuan' => 'required|numeric|min:0',
                 'bukti_barang' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -549,7 +549,7 @@ class AsetController extends Controller
                 }
 
                 // **PERBAIKAN: Tentukan kode barang berdasarkan keadaan barang**
-                $finalKodeBarang = $validated['keadaan_barang'] === 'Rusak Berat'
+                $finalKodeBarang = $validated['keadaan_barang'] === 'RB'
                     ? $this->generateKodeBarangRusakBerat()
                     : $validated['kode_barang'];
 
@@ -592,7 +592,7 @@ class AsetController extends Controller
                 $message = 'Aset berhasil diperbarui';
 
                 // **PERBAIKAN: Tambahkan informasi jika status rusak berat**
-                if ($validated['keadaan_barang'] === 'Rusak Berat' && $finalKodeBarang !== $validated['kode_barang']) {
+                if ($validated['keadaan_barang'] === 'RB' && $finalKodeBarang !== $validated['kode_barang']) {
                     $message .= ". Kode barang telah diubah ke kategori Rusak Berat: {$finalKodeBarang}";
                 }
 
@@ -820,7 +820,7 @@ class AsetController extends Controller
                 'tahun_perolehan' => 'nullable|integer|min:1900|max:' . date('Y'),
                 'tahun_dari' => 'nullable|integer|min:1900|max:' . date('Y'),
                 'tahun_sampai' => 'nullable|integer|min:1900|max:' . date('Y'),
-                'keadaan_barang' => 'nullable|string|in:Baik,Kurang Baik,Rusak Berat'
+                'keadaan_barang' => 'nullable|string|in:B,KB,RB',
             ]);
 
             // Validasi rentang tahun
@@ -1273,7 +1273,7 @@ class AsetController extends Controller
             }
 
             // PERBAIKAN: Untuk aset rusak berat, register boleh duplikat
-            if ($keadaanBarang === 'Rusak Berat') {
+            if ($keadaanBarang === 'RB') {
                 return response()->json([
                     'success' => true,
                     'data' => [

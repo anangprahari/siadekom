@@ -24,7 +24,6 @@ class ProfileController extends Controller
 
         $rules = [
             'name' => 'required|max:50',
-            'photo' => 'image|file|max:1024',
             'email' => 'required|email|max:50|unique:users,email,'.$user->id,
             'username' => 'required|min:4|max:25|alpha_dash:ascii|unique:users,username,'.$user->id
         ];
@@ -34,29 +33,6 @@ class ProfileController extends Controller
         if ($validatedData['email'] != $user->email)
         {
             $validatedData['email_verified_at'] = null;
-        }
-
-        /**
-         * Handle upload image
-         */
-        if ($file = $request->file('photo'))
-        {
-            $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
-            $path = 'public/profile/';
-
-            /**
-             * Delete an image if exists.
-             */
-            if($user->photo)
-            {
-                Storage::delete($path . $user->photo);
-            }
-
-            /**
-             * Store an image to Storage.
-             */
-            $file->storeAs($path, $fileName);
-            $validatedData['photo'] = $fileName;
         }
 
         User::where('id', $user->id)->update($validatedData);

@@ -213,13 +213,13 @@
                             <div class="detail-item">
                                 <label class="detail-label">Keadaan Barang</label>
                                 <div class="detail-value">
-                                    <span class="badge bg-{{ $aset->keadaan_barang === 'Baik' ? 'success' : ($aset->keadaan_barang === 'Kurang Baik' ? 'warning' : 'danger') }} fs-6 px-3 py-2">
+                                    <span class="badge bg-{{ $aset->keadaan_barang === 'B' ? 'success' : ($aset->keadaan_barang === 'KB' ? 'warning' : 'danger') }} fs-6 px-3 py-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-xs me-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <circle cx="12" cy="12" r="9"></circle>
-                                            @if($aset->keadaan_barang === 'Baik')
+                                            @if($aset->keadaan_barang === 'B')
                                                 <path d="m9 12 2 2 4-4"></path>
-                                            @elseif($aset->keadaan_barang === 'Kurang Baik')
+                                            @elseif($aset->keadaan_barang === 'KB')
                                                 <path d="M12 9v4"></path>
                                                 <path d="m12 16 .01 0"></path>
                                             @else

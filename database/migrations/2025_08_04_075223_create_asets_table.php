@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('tahun_perolehan');
             $table->string('ukuran_barang_konstruksi')->nullable();
             $table->string('satuan');
-            $table->enum('keadaan_barang', ['Baik', 'Kurang Baik', 'Rusak Berat']);
+            $table->enum('keadaan_barang', ['B', 'KB', 'RB',]);
             $table->integer('jumlah_barang');
             $table->decimal('harga_satuan', 15, 2);
             $table->string('bukti_barang')->nullable();
@@ -36,6 +36,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

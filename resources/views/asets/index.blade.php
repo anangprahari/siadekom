@@ -167,12 +167,12 @@
                             <label for="keadaan_barang" class="form-label fw-bold text-blue mb-1">Keadaan Barang</label>
                             <select name="keadaan_barang" id="keadaan_barang" class="form-select">
                                 <option value="">Semua Keadaan</option>
-                                <option value="Baik" {{ request('keadaan_barang') == 'Baik' ? 'selected' : '' }}>Baik
+                                <option value="B" {{ request('keadaan_barang') == 'B' ? 'selected' : '' }}>Baik
                                 </option>
-                                <option value="Kurang Baik"
-                                    {{ request('keadaan_barang') == 'Kurang Baik' ? 'selected' : '' }}>Kurang Baik</option>
-                                <option value="Rusak Berat"
-                                    {{ request('keadaan_barang') == 'Rusak Berat' ? 'selected' : '' }}>Rusak Berat</option>
+                                <option value="KB"
+                                    {{ request('keadaan_barang') == 'KB' ? 'selected' : '' }}>Kurang Baik</option>
+                                <option value="RB"
+                                    {{ request('keadaan_barang') == 'RB' ? 'selected' : '' }}>Rusak Berat</option>
                             </select>
                         </div>
                         <div class="col-md-2 d-flex gap-2">
@@ -303,15 +303,15 @@
                                 </td>
                                 <td class="text-center">
                                     <span
-                                        class="badge bg-{{ $aset->keadaan_barang === 'Baik' ? 'success' : ($aset->keadaan_barang === 'Kurang Baik' ? 'warning' : 'danger') }}">
+                                        class="badge bg-{{ $aset->keadaan_barang === 'B' ? 'success' : ($aset->keadaan_barang === 'KB' ? 'warning' : 'danger') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-xs me-1" width="16"
                                             height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <circle cx="12" cy="12" r="9"></circle>
-                                            @if ($aset->keadaan_barang === 'Baik')
+                                            @if ($aset->keadaan_barang === 'B')
                                                 <path d="m9 12 2 2 4-4"></path>
-                                            @elseif($aset->keadaan_barang === 'Kurang Baik')
+                                            @elseif($aset->keadaan_barang === 'KB')
                                                 <path d="M12 9v4"></path>
                                                 <path d="m12 16 .01 0"></path>
                                             @else

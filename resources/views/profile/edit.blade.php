@@ -11,47 +11,20 @@
 
     <hr class="mt-0 mb-4" />
 
-    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('profile.update') }}" method="POST">
         @csrf
         @method('patch')
-        <div class="row">
-
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">
-                            {{ __('Gambar Profil') }}
-                        </h3>
-
-                        <img
-                            class="img-account-profile mb-2"
-                            src="{{ $user->photo ? asset('storage/profile/'.$user->photo) : asset('assets/img/demo/user-placeholder.svg') }}"
-                            id="image-preview"
-                        />
-
-                        <div class="small font-italic text-muted mb-2">JPG atau PNG tidak lebih besar dari 1 MB</div>
-
-                        <input class="form-control @error('photo') is-invalid @enderror" type="file"  id="image" name="photo" accept="image/*" onchange="previewImage();">
-
-                        @error('foto')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-
+        <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">
-                            {{ __('Detail Pemasok') }}
+                            {{ __('Informasi Profil') }}
                         </h3>
 
                         <x-input name="name" value="{{ old('name', $user->name) }}" :required="true" />
 
-                        <x-input name="email" label="Email address" value="{{ old('email', $user->email) }}"  :required="true" />
+                        <x-input name="email" label="Email address" value="{{ old('email', $user->email) }}" :required="true" />
 
                         <x-input name="username" value="{{ old('username', $user->username) }}" :required="true" />
                     </div>
@@ -71,7 +44,3 @@
     </form>
 </div>
 @endsection
-
-@push('page-scripts')
-    <script src="{{ asset('assets/js/img-preview.js') }}"></script>
-@endpush

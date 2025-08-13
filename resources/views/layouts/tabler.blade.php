@@ -91,11 +91,9 @@
             }
         }
 
-        /* Rest of your existing styles... */
     </style>
 
     @stack('page-styles')
-    {{-- @livewireStyles --}}
 </head>
 <body>
     {{-- Mobile Toggle Button --}}
@@ -209,6 +207,5 @@
 
     @stack('page-scripts')
     @stack('scripts')
-    {{-- @livewireScripts --}}
 </body>
 </html>

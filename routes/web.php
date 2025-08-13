@@ -36,16 +36,17 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/assets-by-category', [DashboardController::class, 'getAssetsByCategory'])->name('dashboard.assets-by-category');
+
+    // User Management
+    Route::resource('/users', UserController::class);
+    Route::put('/user/change-password/{username}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/profile/settings', [ProfileController::class, 'settings'])->name('profile.settings');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    // User Management
-    // Route::resource('/users', UserController::class);
-    // Route::put('/user/change-password/{username}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
 
     // =============================
     // ROUTES FOR ASET

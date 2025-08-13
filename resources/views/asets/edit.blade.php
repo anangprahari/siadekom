@@ -584,9 +584,9 @@
                                 <label class="form-label">Keadaan Barang <span class="required-field">*</span></label>
                                 <select class="form-select" name="keadaan_barang" required>
                                     <option value="">Pilih Keadaan Barang</option>
-                                    <option value="Baik" {{ old('keadaan_barang', $aset->keadaan_barang) == 'Baik' ? 'selected' : '' }}>Baik</option>
-                                    <option value="Kurang Baik" {{ old('keadaan_barang', $aset->keadaan_barang) == 'Kurang Baik' ? 'selected' : '' }}>Kurang Baik</option>
-                                    <option value="Rusak Berat" {{ old('keadaan_barang', $aset->keadaan_barang) == 'Rusak Berat' ? 'selected' : '' }}>Rusak Berat</option>
+                                    <option value="B" {{ old('keadaan_barang', $aset->keadaan_barang) == 'B' ? 'selected' : '' }}>Baik</option>
+                                    <option value="KB" {{ old('keadaan_barang', $aset->keadaan_barang) == 'KB' ? 'selected' : '' }}>Kurang Baik</option>
+                                    <option value="RB" {{ old('keadaan_barang', $aset->keadaan_barang) == 'RB' ? 'selected' : '' }}>Rusak Berat</option>
                                 </select>
                             </div>
                         </div>
@@ -1443,7 +1443,7 @@ function handleKeadaanBarangChange(keadaanBarang) {
     const kodeBarangInput = document.getElementById('kode_barang');
     const kodePreview = document.getElementById('kode-preview');
     
-    if (keadaanBarang === 'Rusak Berat') {
+    if (keadaanBarang === 'RB') {
         // Jika rusak berat, gunakan kode khusus
         const kodeRusakBerat = '1.5.4.01.01.01.005';
         
@@ -1474,7 +1474,7 @@ function handleKeadaanBarangChange(keadaanBarang) {
         // Update register juga
         updateRegisterForRusakBerat();
         
-    } else if (keadaanBarang === 'Baik' || keadaanBarang === 'Kurang Baik') {
+    } else if (keadaanBarang === 'B' || keadaanBarang === 'KB') {
         // Jika bukan rusak berat, gunakan kode normal dari hierarki
         updateKodeBarang();
         
@@ -1565,8 +1565,8 @@ function updateKodeBarang() {
     const keadaanBarangSelect = document.querySelector('select[name="keadaan_barang"]');
     
     // Jika keadaan barang adalah rusak berat, gunakan kode khusus
-    if (keadaanBarangSelect && keadaanBarangSelect.value === 'Rusak Berat') {
-        handleKeadaanBarangChange('Rusak Berat');
+    if (keadaanBarangSelect && keadaanBarangSelect.value === 'RB') {
+        handleKeadaanBarangChange('RB');
         return;
     }
     

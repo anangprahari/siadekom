@@ -1,17 +1,19 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{{ config('app.name') }}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
     <!-- CSS files -->
-    <link href="{{ asset('dist/css/tabler.min.css') }}" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <link href="{{ asset('dist/css/tabler.min.css') }}" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <style>
         @import url('https://rsms.me/inter/inter.css');
+
         :root {
             --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
             --sidebar-width: 280px;
@@ -29,6 +31,7 @@
             --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
         }
 
+        /* Global Styles */
         * {
             box-sizing: border-box;
         }
@@ -41,7 +44,9 @@
             font-family: var(--tblr-font-sans-serif);
         }
 
-        /* Modern Sidebar Styles */
+        /* =====================================
+           SIDEBAR STYLES
+        ===================================== */
         .sidebar {
             width: var(--sidebar-width);
             min-height: 100vh;
@@ -50,7 +55,7 @@
             left: 0;
             background: var(--sidebar-bg);
             border-right: 2px solid var(--sidebar-border);
-            z-index: 1030;
+            z-index: 1020;
             box-shadow: var(--sidebar-shadow);
             overflow-y: auto;
             scrollbar-width: thin;
@@ -58,6 +63,7 @@
             backdrop-filter: blur(20px);
         }
 
+        /* Sidebar Scrollbar */
         .sidebar::-webkit-scrollbar {
             width: 6px;
         }
@@ -75,7 +81,7 @@
             background: linear-gradient(180deg, rgba(59, 130, 246, 0.6) 0%, rgba(37, 99, 235, 0.6) 100%);
         }
 
-        /* Logo Section */
+        /* Sidebar Logo */
         .sidebar-logo {
             height: var(--header-height);
             display: flex;
@@ -106,7 +112,7 @@
             transform: scale(1.05);
         }
 
-        /* Navigation Styles */
+        /* Sidebar Navigation */
         .sidebar .nav {
             padding: 1.5rem 1rem;
         }
@@ -193,6 +199,17 @@
             transform: scale(1.1);
         }
 
+        .sidebar .nav-link span {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        /* Sidebar Dropdown */
         .sidebar .nav-link.has-dropdown {
             justify-content: space-between;
         }
@@ -216,23 +233,6 @@
 
         .sidebar .nav-link.has-dropdown:hover::after {
             opacity: 1;
-        }
-
-        .sidebar .nav-link.has-dropdown .dropdown-badge {
-            margin-left: auto;
-            margin-right: 0.5rem;
-            padding: 2px 8px;
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent-color);
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-        }
-
-        .sidebar .nav-link.has-dropdown:hover .dropdown-badge {
-            background: rgba(59, 130, 246, 0.2);
-            transform: scale(1.05);
         }
 
         .sidebar .dropdown-menu {
@@ -307,21 +307,15 @@
             height: 80%;
         }
 
-        /* Main Content Adjustments */
-        .main-content {
-            margin-left: var(--sidebar-width);
-            padding: 0;
-            transition: var(--transition-smooth);
-            min-height: 100vh;
-        }
-
-        /* Modern Navbar with User Profile */
+        /* =====================================
+           NAVBAR STYLES
+        ===================================== */
         .navbar {
             position: fixed;
             top: 0;
             left: var(--sidebar-width);
             width: calc(100% - var(--sidebar-width));
-            z-index: 1028;
+            z-index: 1030;
             height: var(--header-height);
             transition: var(--transition-smooth);
             backdrop-filter: blur(20px);
@@ -445,7 +439,7 @@
             transform: rotate(180deg);
         }
 
-        /* Enhanced Dropdown Menu */
+        /* User Dropdown Menu */
         .user-dropdown .dropdown-menu {
             position: absolute;
             top: calc(100% + 10px);
@@ -461,7 +455,7 @@
             transform: translateY(-10px) scale(0.95);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(20px);
-            z-index: 1050;
+            z-index: 1040;
         }
 
         .user-dropdown.show .dropdown-menu {
@@ -470,7 +464,7 @@
             transform: translateY(0) scale(1);
         }
 
-        .dropdown-menu .user-header {
+        .user-dropdown .dropdown-menu .user-header {
             padding: 1rem;
             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             border-radius: 12px;
@@ -478,7 +472,7 @@
             margin-bottom: 1rem;
         }
 
-        .dropdown-menu .dropdown-item {
+        .user-dropdown .dropdown-menu .dropdown-item {
             display: flex;
             align-items: center;
             gap: 0.75rem;
@@ -491,18 +485,18 @@
             border: 1px solid transparent;
         }
 
-        .dropdown-menu .dropdown-item:hover {
+        .user-dropdown .dropdown-menu .dropdown-item:hover {
             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             color: white;
             transform: translateX(8px) scale(1.02);
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
         }
 
-        .dropdown-menu .dropdown-item.logout:hover {
+        .user-dropdown .dropdown-menu .dropdown-item.logout:hover {
             background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
         }
 
-        .dropdown-menu .dropdown-item .icon-wrapper {
+        .user-dropdown .dropdown-menu .dropdown-item .icon-wrapper {
             width: 36px;
             height: 36px;
             border-radius: 10px;
@@ -513,26 +507,59 @@
             transition: var(--transition-smooth);
         }
 
-        .dropdown-menu .dropdown-item:hover .icon-wrapper {
+        .user-dropdown .dropdown-menu .dropdown-item:hover .icon-wrapper {
             background: rgba(255, 255, 255, 0.2);
             transform: scale(1.1);
         }
 
-        .dropdown-menu .dropdown-item.logout .icon-wrapper {
+        .user-dropdown .dropdown-menu .dropdown-item.logout .icon-wrapper {
             background: rgba(220, 38, 38, 0.1);
         }
 
-        .sidebar .nav-link span {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            min-width: 0;
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 0.01em;
+        /* =====================================
+           MAIN CONTENT STYLES
+        ===================================== */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 0;
+            transition: var(--transition-smooth);
+            min-height: 100vh;
         }
 
-        /* Mobile Toggle Button */
+        main {
+            padding: calc(var(--header-height) + 2rem) 2rem 2rem 2rem;
+            overflow-x: auto;
+        }
+
+        /* =====================================
+           MODAL Z-INDEX FIXES
+        ===================================== */
+        .modal {
+            z-index: 1060 !important;
+        }
+
+        .modal-backdrop {
+            z-index: 1055 !important;
+        }
+
+        .modal-dialog {
+            margin: 3rem auto;
+            max-height: calc(100vh - 6rem);
+            position: relative;
+            z-index: 1061 !important;
+        }
+
+        .modal-content {
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1062 !important;
+        }
+
+        /* =====================================
+           MOBILE STYLES
+        ===================================== */
         .sidebar-toggle {
             display: none;
             position: fixed;
@@ -554,7 +581,24 @@
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.4);
         }
 
-        /* Responsive Design */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1029;
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+            opacity: 1;
+        }
+
         @media (max-width: 768px) {
             :root {
                 --sidebar-width: 320px;
@@ -585,23 +629,31 @@
             main {
                 padding: calc(var(--header-height) + 1rem) 1rem 1rem 1rem;
             }
+
+            .modal-dialog {
+                margin: 1rem;
+                max-height: calc(100vh - 2rem);
+            }
+
+            .sidebar-overlay.show {
+                display: block;
+            }
         }
 
-        main {
-            padding: calc(var(--header-height) + 2rem) 2rem 2rem 2rem;
-            overflow-x: auto;
-        }
-
-        /* Animations */
+        /* =====================================
+           ANIMATIONS
+        ===================================== */
         @keyframes pulse {
             0% {
                 transform: scale(1);
                 opacity: 1;
             }
+
             50% {
                 transform: scale(1.1);
                 opacity: 0.8;
             }
+
             100% {
                 transform: scale(1);
                 opacity: 1;
@@ -630,55 +682,10 @@
             }
         }
 
-        .sidebar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--accent-gradient);
-            transform: translateX(-100%);
-            animation: loading 3s infinite ease-in-out;
-        }
-
-        @keyframes loading {
-            0%, 100% {
-                transform: translateX(-100%);
-            }
-            50% {
-                transform: translateX(100%);
-            }
-        }
-
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1029;
-            opacity: 0;
-            transition: var(--transition-smooth);
-        }
-
-        .sidebar-overlay.show {
-            display: block;
-            opacity: 1;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar-overlay.show {
-                display: block;
-            }
-        }
-
-        .sidebar .nav-link:active {
-            transform: translateX(4px) scale(0.98);
-        }
-
+        /* =====================================
+           UTILITY CLASSES
+        ===================================== */
+        .sidebar .nav-link:active,
         .sidebar .dropdown-item:active {
             transform: translateX(4px) scale(0.98);
         }
@@ -688,11 +695,29 @@
             outline: 2px solid var(--accent-color);
             outline-offset: 2px;
         }
+
+        /* Prevent modal conflicts */
+        body.modal-open {
+            overflow: hidden;
+            padding-right: 0 !important;
+        }
+
+        body.modal-open .navbar .dropdown-toggle {
+            pointer-events: none;
+        }
+
+        body.modal-open .navbar .dropdown-menu {
+            display: none !important;
+        }
+
+        body.modal-open .modal * {
+            pointer-events: auto;
+        }
     </style>
 
     @stack('page-styles')
-    @livewireStyles
 </head>
+
 <body>
     {{-- Mobile Toggle Button --}}
     <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
@@ -716,37 +741,64 @@
             <!-- Beranda -->
             <a class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22" viewBox="0 0 24 24"
-                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M5 12l-2 0l9 -9l9 9l-2 0"/>
-                    <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/>
-                    <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/>
+                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                    <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                    <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
                 </svg>
                 <span>{{ __('Dashboard') }}</span>
             </a>
 
             <!-- Aset Dropdown -->
             <div class="nav-item">
-                <a class="nav-link has-dropdown {{ request()->is('asets*', 'aset-lancar*') ? 'active' : '' }}" 
-                   href="#" 
-                   onclick="toggleDropdown(event, 'asetDropdown')" 
-                   aria-expanded="false"
-                   role="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22" viewBox="0 0 24 24"
-                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M3 7v4a1 1 0 0 0 1 1h3"/>
-                        <path d="M7 7v10"/>
-                        <path d="M10 8v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1 -1v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1z"/>
-                        <path d="M17 7v4a1 1 0 0 0 1 1h3"/>
-                        <path d="M21 7v10"/>
-                        <path d="M22 7h-2l-2 -2h-6l-2 2h-2"/>
+                <a class="nav-link has-dropdown {{ request()->is('asets*', 'aset-lancar*') ? 'active' : '' }}"
+                    href="#" onclick="toggleDropdown(event, 'asetDropdown')" aria-expanded="false" role="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22"
+                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M3 7v4a1 1 0 0 0 1 1h3" />
+                        <path d="M7 7v10" />
+                        <path d="M10 8v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1 -1v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1z" />
+                        <path d="M17 7v4a1 1 0 0 0 1 1h3" />
+                        <path d="M21 7v10" />
+                        <path d="M22 7h-2l-2 -2h-6l-2 2h-2" />
                     </svg>
-                   <span>{{ __('Aset') }}</span>
+                    <span>{{ __('Aset') }}</span>
                 </a>
                 <div class="dropdown-menu" id="asetDropdown">
-                    <a class="dropdown-item {{ request()->is('asets*') ? 'active' : '' }}" href="{{ route('asets.index') }}">Aset Tetap</a>
-                    <a class="dropdown-item {{ request()->is('aset-lancars*') ? 'active' : '' }}" href="{{ route('aset-lancars.index') }}">Aset Lancar</a>
+                    <a class="dropdown-item {{ request()->is('asets*') ? 'active' : '' }}"
+                        href="{{ route('asets.index') }}">Aset Tetap</a>
+                    <a class="dropdown-item {{ request()->is('aset-lancars*') ? 'active' : '' }}"
+                        href="{{ route('aset-lancars.index') }}">Aset Lancar</a>
+                </div>
+            </div>
+
+            <!-- Pengaturan Dropdown -->
+            <div class="nav-item">
+                <a class="nav-link has-dropdown {{ request()->is('users*', 'categories*', 'units*') ? 'active' : '' }}"
+                    href="#" onclick="toggleDropdown(event, 'pengaturanDropdown')" aria-expanded="false"
+                    role="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22"
+                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066
+                            c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426
+                            1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724
+                            1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066
+                            c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572
+                            c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573
+                            c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+                        <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                    </svg>
+                    <span>{{ __('Pengaturan') }}</span>
+                </a>
+                <div class="dropdown-menu" id="pengaturanDropdown">
+                    <a class="dropdown-item" href="{{ route('users.index') }}">Pengguna</a>
+                    {{-- <a class="dropdown-item" href="{{ route('categories.index') }}">Kategori</a>
+                    <a class="dropdown-item" href="{{ route('units.index') }}">Unit</a> --}}
                 </div>
             </div>
         </nav>
@@ -765,7 +817,7 @@
             </div>
         </div>
 
-        <!-- Right: User Profile Dropdown -->
+        <!-- Right: User Profile Dropdown (Simple version - no dropdown menu here) -->
         <div class="user-dropdown" onclick="toggleUserDropdown()">
             <a href="#" class="dropdown-toggle">
                 <div class="user-avatar">
@@ -777,7 +829,7 @@
                 </div>
                 <i class="fas fa-chevron-down dropdown-arrow"></i>
             </a>
-            
+
             <div class="dropdown-menu">
                 <!-- User Header -->
                 <div class="user-header">
@@ -832,215 +884,335 @@
 
     <script src="{{ asset('dist/js/tabler.min.js') }}" defer></script>
     <script>
-        // Enhanced dropdown functionality
-        function toggleDropdown(event, dropdownId) {
-            event.preventDefault();
-            
-            const link = event.currentTarget;
-            const dropdown = document.getElementById(dropdownId);
-            const isExpanded = link.getAttribute('aria-expanded') === 'true';
-            
-            // Close all other dropdowns
-            closeAllDropdowns(dropdownId);
-            
-            // Toggle current dropdown
-            if (!isExpanded) {
-                dropdown.classList.add('show');
-                link.setAttribute('aria-expanded', 'true');
-                
-                // Add a small delay to ensure smooth animation
-                setTimeout(() => {
-                    dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
-                }, 10);
-            } else {
-                dropdown.classList.remove('show');
-                link.setAttribute('aria-expanded', 'false');
-                dropdown.style.maxHeight = '0px';
+        // =====================================
+        // CORE FUNCTIONALITY
+        // =====================================
+        
+        class SidebarManager {
+            constructor() {
+                this.sidebar = document.getElementById('sidebar');
+                this.overlay = document.getElementById('sidebarOverlay');
+                this.init();
             }
-        }
 
-        function closeAllDropdowns(exceptId = null) {
-            const allDropdowns = document.querySelectorAll('.sidebar .dropdown-menu');
-            const allToggles = document.querySelectorAll('.has-dropdown');
-            
-            allDropdowns.forEach((dropdown, index) => {
-                if (!exceptId || dropdown.id !== exceptId) {
-                    dropdown.classList.remove('show');
-                    dropdown.style.maxHeight = '0px';
-                    if (allToggles[index]) {
-                        allToggles[index].setAttribute('aria-expanded', 'false');
+            init() {
+                this.setupEventListeners();
+                this.initializeDropdowns();
+                this.handleResize();
+            }
+
+            setupEventListeners() {
+                // Window resize handler
+                window.addEventListener('resize', () => this.handleResize());
+                
+                // Close sidebar when clicking outside on mobile
+                document.addEventListener('click', (event) => this.handleOutsideClick(event));
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (event) => this.handleKeyDown(event));
+            }
+
+            initializeDropdowns() {
+                // Set initial max-height for all dropdown menus
+                const dropdownMenus = document.querySelectorAll('.sidebar .dropdown-menu');
+                dropdownMenus.forEach(menu => {
+                    menu.style.maxHeight = '0px';
+                });
+
+                // Auto-expand active dropdowns
+                this.autoExpandActiveDropdowns();
+            }
+
+            autoExpandActiveDropdowns() {
+                const activeLinks = document.querySelectorAll('.nav-link.active.has-dropdown');
+                activeLinks.forEach(link => {
+                    const onclickAttr = link.getAttribute('onclick');
+                    if (onclickAttr) {
+                        const match = onclickAttr.match(/toggleDropdown\(event, '(.+?)'\)/);
+                        if (match) {
+                            const dropdownId = match[1];
+                            const dropdown = document.getElementById(dropdownId);
+                            if (dropdown) {
+                                dropdown.classList.add('show');
+                                link.setAttribute('aria-expanded', 'true');
+                                setTimeout(() => {
+                                    dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
+                                }, 100);
+                            }
+                        }
+                    }
+                });
+            }
+
+            toggle() {
+                this.sidebar.classList.toggle('show');
+                this.overlay.classList.toggle('show');
+            }
+
+            close() {
+                this.sidebar.classList.remove('show');
+                this.overlay.classList.remove('show');
+            }
+
+            handleResize() {
+                if (window.innerWidth > 768) {
+                    this.close();
+                }
+            }
+
+            handleOutsideClick(event) {
+                const toggle = document.querySelector('.sidebar-toggle');
+                if (window.innerWidth <= 768) {
+                    if (!this.sidebar.contains(event.target) && !toggle.contains(event.target)) {
+                        this.close();
                     }
                 }
-            });
-        }
+            }
 
-        // User dropdown functionality
-        function toggleUserDropdown() {
-            const userDropdown = document.querySelector('.user-dropdown');
-            const isOpen = userDropdown.classList.contains('show');
-            
-            // Close all user dropdowns first
-            document.querySelectorAll('.user-dropdown').forEach(dropdown => {
-                dropdown.classList.remove('show');
-            });
-            
-            if (!isOpen) {
-                userDropdown.classList.add('show');
+            handleKeyDown(event) {
+                if (event.key === 'Escape') {
+                    this.close();
+                }
             }
         }
 
-        // Close user dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const userDropdown = document.querySelector('.user-dropdown');
-            if (!userDropdown.contains(event.target)) {
-                userDropdown.classList.remove('show');
-            }
-        });
+        class DropdownManager {
+            static toggleDropdown(event, dropdownId) {
+                event.preventDefault();
 
-        // Mobile sidebar functionality
+                const link = event.currentTarget;
+                const dropdown = document.getElementById(dropdownId);
+                const isExpanded = link.getAttribute('aria-expanded') === 'true';
+
+                // Close all other dropdowns
+                this.closeAllDropdowns(dropdownId);
+
+                // Toggle current dropdown
+                if (!isExpanded) {
+                    dropdown.classList.add('show');
+                    link.setAttribute('aria-expanded', 'true');
+                    setTimeout(() => {
+                        dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
+                    }, 10);
+                } else {
+                    dropdown.classList.remove('show');
+                    link.setAttribute('aria-expanded', 'false');
+                    dropdown.style.maxHeight = '0px';
+                }
+            }
+
+            static closeAllDropdowns(exceptId = null) {
+                const allDropdowns = document.querySelectorAll('.sidebar .dropdown-menu');
+                const allToggles = document.querySelectorAll('.has-dropdown');
+
+                allDropdowns.forEach((dropdown, index) => {
+                    if (!exceptId || dropdown.id !== exceptId) {
+                        dropdown.classList.remove('show');
+                        dropdown.style.maxHeight = '0px';
+                        if (allToggles[index]) {
+                            allToggles[index].setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+            }
+        }
+
+        class UserDropdownManager {
+            constructor() {
+                this.userDropdown = document.querySelector('.user-dropdown');
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                // Close user dropdown when clicking outside
+                document.addEventListener('click', (event) => {
+                    if (this.userDropdown && !this.userDropdown.contains(event.target)) {
+                        this.close();
+                    }
+                });
+
+                // Prevent dropdown toggle link default behavior
+                const toggleLink = this.userDropdown?.querySelector('.dropdown-toggle');
+                if (toggleLink) {
+                    toggleLink.addEventListener('click', (e) => e.preventDefault());
+                }
+            }
+
+            toggle() {
+                if (!this.userDropdown) return;
+
+                const isOpen = this.userDropdown.classList.contains('show');
+                
+                // Close all sidebar dropdowns first
+                DropdownManager.closeAllDropdowns();
+                
+                if (!isOpen) {
+                    this.userDropdown.classList.add('show');
+                } else {
+                    this.userDropdown.classList.remove('show');
+                }
+            }
+
+            close() {
+                if (this.userDropdown) {
+                    this.userDropdown.classList.remove('show');
+                }
+            }
+        }
+
+        class ModalManager {
+            static init() {
+                // Enhanced modal and dropdown management
+                $(document).ready(() => {
+                    this.setupModalEvents();
+                    this.setupZIndexManagement();
+                    this.setupKeyboardHandling();
+                });
+            }
+
+            static setupModalEvents() {
+                // Close dropdowns before showing modal
+                $(document).on('show.bs.modal', '.modal', function() {
+                    DropdownManager.closeAllDropdowns();
+                    userDropdownManager.close();
+                    
+                    const modal = $(this);
+                    const zIndex = 1060 + $('.modal:visible').length * 10;
+                    modal.css('z-index', zIndex);
+                    
+                    setTimeout(() => {
+                        $('.modal-backdrop').css('z-index', zIndex - 5);
+                    }, 50);
+                });
+
+                // Re-enable interactions when modal is hidden
+                $(document).on('hidden.bs.modal', '.modal', function() {
+                    $('body').removeClass('modal-open');
+                    $('.navbar .dropdown-toggle').css('pointer-events', 'auto');
+                    
+                    if ($('.modal:visible').length === 0) {
+                        modalZindex = 1060;
+                    }
+                });
+
+                // Handle modal backdrop clicks
+                $(document).on('click', '.modal', function(e) {
+                    if (e.target === e.currentTarget) {
+                        $(this).modal('hide');
+                    }
+                });
+
+                // Prevent dropdown clicks from closing modal
+                $(document).on('click', '.dropdown-menu', function(e) {
+                    e.stopPropagation();
+                });
+            }
+
+            static setupZIndexManagement() {
+                let modalZindex = 1060;
+                
+                $(document).on('show.bs.modal', '.modal', function() {
+                    const currentModal = $(this);
+                    modalZindex++;
+                    currentModal.css('z-index', modalZindex);
+                    
+                    setTimeout(() => {
+                        $('.modal-backdrop').last().css('z-index', modalZindex - 1);
+                    }, 50);
+                });
+            }
+
+            static setupKeyboardHandling() {
+                $(document).on('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        // Close user dropdown first
+                        userDropdownManager.close();
+                        
+                        // Then handle modal
+                        const visibleModal = $('.modal:visible').last();
+                        if (visibleModal.length) {
+                            visibleModal.modal('hide');
+                        }
+                    }
+                });
+            }
+        }
+
+        // =====================================
+        // GLOBAL FUNCTIONS (for backward compatibility)
+        // =====================================
+        
         function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            
-            sidebar.classList.toggle('show');
-            overlay.classList.toggle('show');
+            sidebarManager.toggle();
         }
 
         function closeSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            
-            sidebar.classList.remove('show');
-            overlay.classList.remove('show');
+            sidebarManager.close();
         }
 
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(event) {
-            const isDropdownToggle = event.target.closest('.has-dropdown');
-            const isDropdownContent = event.target.closest('.sidebar .dropdown-menu');
-            const isUserDropdown = event.target.closest('.user-dropdown');
-            
-            if (!isDropdownToggle && !isDropdownContent && !isUserDropdown) {
-                closeAllDropdowns();
-            }
-        });
+        function toggleDropdown(event, dropdownId) {
+            DropdownManager.toggleDropdown(event, dropdownId);
+        }
 
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById('sidebar');
-            const toggle = document.querySelector('.sidebar-toggle');
-            
-            if (window.innerWidth <= 768) {
-                if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
-                    closeSidebar();
-                }
-            }
-        });
+        function closeAllDropdowns(exceptId = null) {
+            DropdownManager.closeAllDropdowns(exceptId);
+        }
 
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                const sidebar = document.getElementById('sidebar');
-                const overlay = document.getElementById('sidebarOverlay');
-                
-                sidebar.classList.remove('show');
-                overlay.classList.remove('show');
-            }
-        });
+        function toggleUserDropdown() {
+            userDropdownManager.toggle();
+        }
 
-        // Keyboard navigation support
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeAllDropdowns();
-                document.querySelector('.user-dropdown').classList.remove('show');
-                
-                if (window.innerWidth <= 768) {
-                    closeSidebar();
-                }
-            }
-        });
+        // =====================================
+        // INITIALIZATION
+        // =====================================
+        
+        let sidebarManager, userDropdownManager;
 
-        // Initialize dropdowns on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Set initial max-height for all dropdown menus
-            const dropdownMenus = document.querySelectorAll('.sidebar .dropdown-menu');
-            dropdownMenus.forEach(menu => {
-                menu.style.maxHeight = '0px';
-            });
+            // Initialize managers
+            sidebarManager = new SidebarManager();
+            userDropdownManager = new UserDropdownManager();
+            ModalManager.init();
 
-            // Auto-expand active dropdowns
-            const activeLinks = document.querySelectorAll('.nav-link.active.has-dropdown');
-            activeLinks.forEach(link => {
-                const onclickAttr = link.getAttribute('onclick');
-                if (onclickAttr) {
-                    const match = onclickAttr.match(/toggleDropdown\(event, '(.+?)'\)/);
-                    if (match) {
-                        const dropdownId = match[1];
-                        const dropdown = document.getElementById(dropdownId);
-                        
-                        if (dropdown) {
-                            dropdown.classList.add('show');
-                            link.setAttribute('aria-expanded', 'true');
-                            setTimeout(() => {
-                                dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
-                            }, 100);
-                        }
-                    }
-                }
-            });
-
-            // Add smooth scroll behavior
-            document.documentElement.style.scrollBehavior = 'smooth';
-        });
-
-        // Add loading states for better UX
-        function addLoadingState(element) {
-            element.style.opacity = '0.7';
-            element.style.pointerEvents = 'none';
-        }
-
-        function removeLoadingState(element) {
-            element.style.opacity = '1';
-            element.style.pointerEvents = 'auto';
-        }
-
-        // Enhanced hover effects with throttling
-        let hoverTimeout;
-        document.querySelectorAll('.nav-link, .dropdown-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                clearTimeout(hoverTimeout);
-                this.style.willChange = 'transform, box-shadow';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                hoverTimeout = setTimeout(() => {
-                    this.style.willChange = 'auto';
-                }, 300);
-            });
-        });
-
-        // Preload images for better performance
-        function preloadImages() {
-            const images = ['{{ asset("assets/img/backgrounds/logokominfo.png") }}'];
+            // Preload images for better performance
+            const images = ['{{ asset('assets/img/backgrounds/logokominfo.png') }}'];
             images.forEach(src => {
                 const img = new Image();
                 img.src = src;
             });
-        }
 
-        // Initialize preloading
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', preloadImages);
-        } else {
-            preloadImages();
-        }
+            // Add smooth scroll behavior
+            document.documentElement.style.scrollBehavior = 'smooth';
 
-        // Prevent dropdown toggle link default behavior
-        document.querySelector('.user-dropdown .dropdown-toggle').addEventListener('click', function(e) {
-            e.preventDefault();
+            // Enhanced hover effects with performance optimization
+            const hoverElements = document.querySelectorAll('.nav-link, .dropdown-item');
+            let hoverTimeout;
+            
+            hoverElements.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    clearTimeout(hoverTimeout);
+                    this.style.willChange = 'transform, box-shadow';
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    hoverTimeout = setTimeout(() => {
+                        this.style.willChange = 'auto';
+                    }, 300);
+                });
+            });
         });
+
+        // Initialize modal management if jQuery is available
+        if (typeof $ !== 'undefined') {
+            ModalManager.init();
+        }
     </script>
+    
     @stack('page-scripts')
-    @livewireScripts
 </body>
+
 </html>
