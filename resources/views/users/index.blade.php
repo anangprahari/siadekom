@@ -27,76 +27,45 @@
                 <div class="card-header">
                     <h3 class="card-title">Data Users</h3>
                     <div class="card-actions">
-                        <div class="input-group input-group-flat">
-                            <input type="text" id="searchInput" class="form-control" placeholder="Cari user..."
-                                autocomplete="off">
-                            <span class="input-group-text">
-                                <i class="fas fa-search"></i>
-                            </span>
-                        </div>
+                        <form id="searchForm" class="d-flex">
+                            <div class="input-group input-group-flat">
+                                <input type="text" 
+                                       id="searchInput" 
+                                       name="search" 
+                                       class="form-control" 
+                                       placeholder="Cari nama, username, atau email..."
+                                       value="{{ $search ?? '' }}"
+                                       autocomplete="off">
+                                <span class="input-group-text">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+                            @if($search)
+                                <a href="{{ route('users.index') }}" class="btn btn-outline-secondary ms-2" title="Clear Search">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            @endif
+                        </form>
                     </div>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="table table-vcenter card-table" id="usersTable">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>User</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Tanggal Dibuat</th>
-                                <th class="w-1">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($users as $index => $user)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="avatar me-2">{{ strtoupper(substr($user->name, 0, 2)) }}</span>
-                                            <div>{{ $user->name }}</div>
-                                        </div>
-                                    </td>
-                                    <td>{{ $user->username }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>
-                                        {{ $user->created_at->format('d M Y') }}
-                                        <small class="text-secondary d-block">{{ $user->created_at->format('H:i') }}</small>
-                                    </td>
-                                    <td>
-                                        <div class="btn-list">
-                                            <a href="{{ route('users.show', $user) }}"
-                                                class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-sm btn-outline-danger"
-                                                onclick="confirmDelete({{ $user->id }}, '{{ $user->name }}')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center py-5">
-                                        <div class="empty">
-                                            <i class="fas fa-users fa-3x text-muted mb-3"></i>
-                                            <p class="empty-title">Belum ada users</p>
-                                            <p class="empty-subtitle text-secondary">Mulai dengan menambahkan user pertama
-                                            </p>
-                                            <a href="{{ route('users.create') }}" class="btn btn-primary">
-                                                <i class="fas fa-plus me-1"></i>
-                                                Tambah User
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                <div id="usersTableContainer">
+                    @include('users.partials.users-table', ['users' => $users])
                 </div>
+
+                @if($users->hasPages())
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="text-secondary">
+                                Menampilkan {{ $users->firstItem() ?? 0 }} - {{ $users->lastItem() ?? 0 }} 
+                                dari {{ $users->total() }} users
+                            </div>
+                            <div id="paginationContainer">
+                                {{ $users->appends(request()->query())->links() }}
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -109,13 +78,85 @@
 
 @push('page-scripts')
     <script>
-        // Search functionality
-        $('#searchInput').on('keyup', function() {
-            const value = $(this).val().toLowerCase();
-            $('#usersTable tbody tr').filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        let searchTimeout;
+
+        $(document).ready(function() {
+            // Real-time search with debouncing
+            $('#searchInput').on('input', function() {
+                clearTimeout(searchTimeout);
+                const searchValue = $(this).val();
+
+                searchTimeout = setTimeout(function() {
+                    performSearch(searchValue);
+                }, 500); // Wait 500ms after user stops typing
+            });
+
+            // Handle pagination clicks
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                const url = $(this).attr('href');
+                const searchValue = $('#searchInput').val();
+                
+                loadUsers(url, searchValue);
+            });
+
+            // Form submit (fallback for Enter key)
+            $('#searchForm').on('submit', function(e) {
+                e.preventDefault();
+                const searchValue = $('#searchInput').val();
+                performSearch(searchValue);
             });
         });
+
+        function performSearch(searchValue) {
+            const baseUrl = "{{ route('users.index') }}";
+            const url = searchValue ? `${baseUrl}?search=${encodeURIComponent(searchValue)}` : baseUrl;
+            
+            loadUsers(url, searchValue);
+        }
+
+        function loadUsers(url, searchValue = '') {
+            // Show loading state
+            $('#usersTableContainer').html(`
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2 text-secondary">Mencari data...</p>
+                </div>
+            `);
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: { search: searchValue },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function(response) {
+                    $('#usersTableContainer').html(response.html);
+                    
+                    if (response.pagination) {
+                        $('#paginationContainer').html(response.pagination);
+                    }
+
+                    // Update browser URL without page reload
+                    const newUrl = searchValue ? 
+                        `{{ route('users.index') }}?search=${encodeURIComponent(searchValue)}` : 
+                        '{{ route('users.index') }}';
+                    
+                    window.history.replaceState({}, '', newUrl);
+                },
+                error: function(xhr) {
+                    $('#usersTableContainer').html(`
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Terjadi kesalahan saat memuat data. Silakan refresh halaman.
+                        </div>
+                    `);
+                }
+            });
+        }
 
         // Delete confirmation
         function confirmDelete(userId, userName) {

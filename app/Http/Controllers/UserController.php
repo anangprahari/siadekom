@@ -14,15 +14,36 @@ use Exception;
 class UserController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $users = User::select(['id', 'name', 'username', 'email', 'created_at', 'updated_at'])
-                ->orderBy('created_at', 'desc')
-                ->get();
+            $search = $request->get('search');
 
-            return view('users.index', compact('users'));
+            $users = User::select(['id', 'name', 'username', 'email', 'created_at', 'updated_at'])
+                ->when($search, function ($query, $search) {
+                    return $query->where(function ($q) use ($search) {
+                        $q->where('name', 'LIKE', "%{$search}%")
+                            ->orWhere('username', 'LIKE', "%{$search}%")
+                            ->orWhere('email', 'LIKE', "%{$search}%");
+                    });
+                })
+                ->orderBy('created_at', 'desc')
+                ->paginate(15);
+
+            // Untuk AJAX request, return JSON
+            if ($request->ajax()) {
+                return response()->json([
+                    'html' => view('users.partials.users-table', compact('users'))->render(),
+                    'pagination' => $users->links()->render()
+                ]);
+            }
+
+            return view('users.index', compact('users', 'search'));
         } catch (Exception $e) {
+            if ($request->ajax()) {
+                return response()->json(['error' => 'Gagal memuat data users: ' . $e->getMessage()], 500);
+            }
+
             return redirect()->back()
                 ->with('error', 'Gagal memuat data users: ' . $e->getMessage());
         }
