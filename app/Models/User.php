@@ -8,14 +8,8 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'username',
@@ -23,25 +17,14 @@ class User extends Authenticatable
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
-            // HAPUS: email_verified_at cast - tidak diperlukan lagi
             'password' => 'hashed',
         ];
     }
@@ -63,20 +46,16 @@ class User extends Authenticatable
      */
     private function generateUniqueUsername($name)
     {
-        // Bersihkan nama dan buat base username
         $base = strtolower(preg_replace('/[^a-zA-Z0-9]/', '_', $name));
-        $base = preg_replace('/_{2,}/', '_', $base); // Replace multiple underscores
-        $base = trim($base, '_'); // Remove leading/trailing underscores
+        $base = preg_replace('/_{2,}/', '_', $base);
+        $base = trim($base, '_');
 
-        // Pastikan minimal 4 karakter
         if (strlen($base) < 4) {
             $base = $base . '_user';
         }
 
-        // Limit to 25 characters
         $base = substr($base, 0, 25);
 
-        // Cek keunikan
         $username = $base;
         $counter = 1;
 

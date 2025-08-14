@@ -169,10 +169,10 @@
                                 <option value="">Semua Keadaan</option>
                                 <option value="B" {{ request('keadaan_barang') == 'B' ? 'selected' : '' }}>Baik
                                 </option>
-                                <option value="KB"
-                                    {{ request('keadaan_barang') == 'KB' ? 'selected' : '' }}>Kurang Baik</option>
-                                <option value="RB"
-                                    {{ request('keadaan_barang') == 'RB' ? 'selected' : '' }}>Rusak Berat</option>
+                                <option value="KB" {{ request('keadaan_barang') == 'KB' ? 'selected' : '' }}>Kurang
+                                    Baik</option>
+                                <option value="RB" {{ request('keadaan_barang') == 'RB' ? 'selected' : '' }}>Rusak
+                                    Berat</option>
                             </select>
                         </div>
                         <div class="col-md-2 d-flex gap-2">

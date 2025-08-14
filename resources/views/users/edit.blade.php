@@ -13,9 +13,7 @@
                             <li class="breadcrumb-item active" aria-current="page">Edit</li>
                         </ol>
                     </nav>
-                    <div class="page-pretitle">
-                        Edit User
-                    </div>
+                    <div class="page-pretitle">Edit User</div>
                     <h2 class="page-title">
                         <i class="fas fa-user-edit me-2"></i>
                         {{ $user->name }}
@@ -65,9 +63,7 @@
                                 <div class="row">
                                     <!-- Name -->
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label required">
-                                            Nama Lengkap
-                                        </label>
+                                        <label class="form-label required">Nama Lengkap</label>
                                         <div class="input-group">
                                             <span class="input-group-text">
                                                 <i class="fas fa-user"></i>
@@ -83,9 +79,7 @@
 
                                     <!-- Username -->
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label required">
-                                            Username
-                                        </label>
+                                        <label class="form-label required">Username</label>
                                         <div class="input-group">
                                             <span class="input-group-text">
                                                 <i class="fas fa-at"></i>
@@ -93,7 +87,7 @@
                                             <input type="text"
                                                 class="form-control @error('username') is-invalid @enderror" name="username"
                                                 id="username" value="{{ old('username', $user->username) }}"
-                                                placeholder="Masukkan username" required>
+                                                placeholder="Masukkan username" data-validation="username" required>
                                         </div>
                                         <div class="form-text">Username hanya boleh mengandung huruf, angka, dan underscore.
                                         </div>
@@ -104,10 +98,7 @@
 
                                     <!-- Email -->
                                     <div class="col-12 mb-3">
-                                        <label class="form-label required">
-                                            Alamat Email
-                                            <!-- HAPUS semua badge dan status verifikasi email -->
-                                        </label>
+                                        <label class="form-label required">Alamat Email</label>
                                         <div class="input-group">
                                             <span class="input-group-text">
                                                 <i class="fas fa-envelope"></i>
@@ -116,7 +107,6 @@
                                                 name="email" id="email" value="{{ old('email', $user->email) }}"
                                                 placeholder="Masukkan alamat email" required>
                                         </div>
-                                        <!-- HAPUS semua pesan terkait verifikasi email -->
                                         @error('email')
                                             <div class="invalid-feedback d-block">{{ $message }}</div>
                                         @enderror
@@ -172,7 +162,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <button type="button" class="btn btn-outline-danger w-100"
-                                        onclick="confirmDelete({{ $user->id }}, '{{ $user->name }}')">
+                                        onclick="UserActions.confirmDelete({{ $user->id }}, '{{ $user->name }}')">
                                         <i class="fas fa-trash me-2"></i>
                                         Hapus User
                                     </button>
@@ -186,18 +176,18 @@
     </div>
 
     <!-- Change Password Modal -->
-    <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+    <div class="modal fade" id="passwordModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{ route('users.updatePassword', $user->username) }}" method="POST" id="passwordForm">
                     @csrf
                     @method('PUT')
                     <div class="modal-header">
-                        <h5 class="modal-title" id="passwordModalLabel">
+                        <h5 class="modal-title">
                             <i class="fas fa-key me-2"></i>
                             Ubah Password - {{ $user->name }}
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <div class="alert alert-info">
@@ -212,12 +202,13 @@
                                 <span class="input-group-text">
                                     <i class="fas fa-lock"></i>
                                 </span>
-                                <input type="password" class="form-control" name="password" id="newPassword" required>
-                                <button type="button" class="btn btn-outline-secondary" id="toggleNewPassword">
+                                <input type="password" class="form-control" name="password" id="newPassword"
+                                    data-password-toggle="new" required>
+                                <button type="button" class="btn btn-outline-secondary" data-toggle-target="new">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
-                            <div class="form-text">Minimal 6 karakter dengan kombinasi huruf dan angka.</div>
+                            <div class="form-text">Minimal 8 karakter dengan kombinasi huruf dan angka.</div>
                         </div>
 
                         <div class="mb-3">
@@ -227,8 +218,8 @@
                                     <i class="fas fa-lock"></i>
                                 </span>
                                 <input type="password" class="form-control" name="password_confirmation"
-                                    id="confirmNewPassword" required>
-                                <button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword">
+                                    id="confirmNewPassword" data-password-toggle="confirm" required>
+                                <button type="button" class="btn btn-outline-secondary" data-toggle-target="confirm">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
@@ -258,31 +249,9 @@
 
 @push('page-styles')
     <style>
-        .avatar-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            font-weight: 600;
-            border-radius: 50%;
-        }
-
-        .avatar-placeholder:hover {
-            background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
-        }
-
         .form-label.required::after {
             content: ' *';
             color: #dc3545;
-        }
-
-        .input-group-text {
-            background-color: #f8f9fa;
-            border-color: #dee2e6;
-            color: #6c757d;
         }
 
         .card-footer.bg-transparent {
@@ -290,24 +259,20 @@
             border-top: 1px solid #dee2e6;
         }
 
-        .badge {
-            font-size: 0.75em;
-            vertical-align: middle;
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 0.5rem 0.5rem 0 0;
+            border-bottom: none;
         }
 
-        #currentPhoto.photo-will-remove {
-            opacity: 0.3;
-            filter: grayscale(100%);
+        .modal-header .btn-close {
+            filter: invert(1);
+            opacity: 0.8;
         }
 
-        .removed-photo-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #dc3545;
-            font-size: 1.5rem;
-            z-index: 1;
+        .modal-header .btn-close:hover {
+            opacity: 1;
         }
     </style>
 @endpush
@@ -315,44 +280,16 @@
 @push('page-scripts')
     <script>
         $(document).ready(function() {
-            console.log('Edit user page loaded');
             // Username validation
-            $('#username').on('input', function() {
-                let username = $(this).val();
-                let sanitized = username.replace(/[^a-zA-Z0-9_]/g, '');
-
-                if (username !== sanitized) {
-                    $(this).val(sanitized);
-                }
+            $('[data-validation="username"]').on('input', function() {
+                FormUtils.validateUsername(this);
             });
 
-            // HAPUS: Email change warning - tidak diperlukan lagi
-
-            // Toggle password visibility in modal
-            $('#toggleNewPassword').on('click', function() {
-                const passwordInput = $('#newPassword');
-                const icon = $(this).find('i');
-
-                if (passwordInput.attr('type') === 'password') {
-                    passwordInput.attr('type', 'text');
-                    icon.removeClass('fa-eye').addClass('fa-eye-slash');
-                } else {
-                    passwordInput.attr('type', 'password');
-                    icon.removeClass('fa-eye-slash').addClass('fa-eye');
-                }
-            });
-
-            $('#toggleConfirmPassword').on('click', function() {
-                const passwordInput = $('#confirmNewPassword');
-                const icon = $(this).find('i');
-
-                if (passwordInput.attr('type') === 'password') {
-                    passwordInput.attr('type', 'text');
-                    icon.removeClass('fa-eye').addClass('fa-eye-slash');
-                } else {
-                    passwordInput.attr('type', 'password');
-                    icon.removeClass('fa-eye-slash').addClass('fa-eye');
-                }
+            // Password toggle functionality
+            $('[data-toggle-target]').on('click', function(e) {
+                e.preventDefault();
+                const target = $(this).data('toggle-target');
+                PasswordUtils.toggleVisibility(target);
             });
 
             // Password confirmation validation
@@ -378,15 +315,8 @@
             // Main form submission
             $('#editUserForm').on('submit', function(e) {
                 e.preventDefault();
+                FormUtils.handleFormSubmit(this, document.getElementById('submitBtn'));
 
-                const submitBtn = $('#submitBtn');
-                const originalText = submitBtn.html();
-
-                // Show loading
-                submitBtn.prop('disabled', true)
-                    .html('<i class="fas fa-spinner fa-spin me-1"></i>Mengupdate...');
-
-                // Submit form
                 setTimeout(() => {
                     this.submit();
                 }, 500);
@@ -395,15 +325,8 @@
             // Password form submission
             $('#passwordForm').on('submit', function(e) {
                 e.preventDefault();
+                FormUtils.handleFormSubmit(this, document.getElementById('updatePasswordBtn'));
 
-                const submitBtn = $('#updatePasswordBtn');
-                const originalText = submitBtn.html();
-
-                // Show loading
-                submitBtn.prop('disabled', true)
-                    .html('<i class="fas fa-spinner fa-spin me-1"></i>Mengupdate...');
-
-                // Submit form
                 setTimeout(() => {
                     this.submit();
                 }, 500);
@@ -418,43 +341,7 @@
             });
         });
 
-        // Delete confirmation function
-        function confirmDelete(userId, userName) {
-            Swal.fire({
-                title: 'Hapus User?',
-                html: `Apakah Anda yakin ingin menghapus user <strong>${userName}</strong>?<br><small class="text-danger">Tindakan ini tidak dapat dibatalkan!</small>`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: '<i class="fas fa-trash me-1"></i>Ya, Hapus!',
-                cancelButtonText: '<i class="fas fa-times me-1"></i>Batal',
-                reverseButtons: true,
-                focusConfirm: false,
-                focusCancel: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Show loading
-                    Swal.fire({
-                        title: 'Menghapus...',
-                        text: 'Sedang menghapus user, mohon tunggu.',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        showConfirmButton: false,
-                        didOpen: () => {
-                            Swal.showLoading();
-                        }
-                    });
-
-                    // Submit delete form
-                    const form = document.getElementById('deleteForm');
-                    form.action = `/users/${userId}`;
-                    form.submit();
-                }
-            });
-        }
-
-        // Show success message if exists
+        // Show messages
         @if (session('success'))
             $(document).ready(function() {
                 Swal.fire({
@@ -470,7 +357,6 @@
             });
         @endif
 
-        // Show error message if exists  
         @if (session('error'))
             $(document).ready(function() {
                 Swal.fire({

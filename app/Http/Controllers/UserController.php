@@ -5,19 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Exception;
 
 class UserController extends Controller
 {
+
     public function index()
     {
         try {
-            // Hapus email_verified_at dari select
             $users = User::select(['id', 'name', 'username', 'email', 'created_at', 'updated_at'])
                 ->orderBy('created_at', 'desc')
                 ->get();
@@ -39,18 +38,11 @@ class UserController extends Controller
         DB::beginTransaction();
 
         try {
-            // Data sudah tervalidasi dari FormRequest
             $validatedData = $request->validated();
-
-            // Hash password
             $validatedData['password'] = Hash::make($validatedData['password']);
-
-            // Remove password_confirmation dari data yang akan disimpan
             unset($validatedData['password_confirmation']);
 
-            // Create user
-            $user = User::create($validatedData);
-
+            User::create($validatedData);
             DB::commit();
 
             return redirect()
@@ -73,23 +65,29 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        if ($user->id === Auth::id()) {
+            return redirect()->route('profile.edit')
+                ->with('info', 'Gunakan halaman Profile untuk mengedit data Anda sendiri.');
+        }
+
         return view('users.edit', compact('user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
     {
+        if ($user->id === Auth::id()) {
+            return redirect()->route('profile.edit')
+                ->with('error', 'Tidak dapat mengedit akun sendiri melalui User Management.');
+        }
+
         DB::beginTransaction();
 
         try {
-            $validatedData = $request->validated();
-
-            // Update user
-            $user->update($validatedData);
-
+            $user->update($request->validated());
             DB::commit();
 
             return redirect()
-                ->route('users.index')
+                ->route('users.show', $user)
                 ->with('success', 'User berhasil diupdate!');
         } catch (Exception $e) {
             DB::rollBack();
@@ -101,32 +99,36 @@ class UserController extends Controller
         }
     }
 
-    public function updatePassword(Request $request, String $username)
+    public function updatePassword(Request $request, User $user)
     {
-        // Validation
+        if ($user->id === Auth::id()) {
+            return redirect()->route('profile.settings')
+                ->with('error', 'Gunakan halaman Settings untuk mengubah password Anda sendiri.');
+        }
+
         $validated = $request->validate([
-            'password' => 'required|string|min:6|confirmed',
-            'password_confirmation' => 'required|string|min:6',
+            'password' => 'required|string|min:8|confirmed',
         ], [
             'password.required' => 'Password wajib diisi.',
-            'password.min' => 'Password minimal 6 karakter.',
+            'password.min' => 'Password minimal 8 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
-            'password_confirmation.required' => 'Konfirmasi password wajib diisi.',
         ]);
 
-        try {
-            // Find user by username
-            $user = User::where('username', $username)->firstOrFail();
+        DB::beginTransaction();
 
-            // Update password
+        try {
             $user->update([
                 'password' => Hash::make($validated['password'])
             ]);
 
+            DB::commit();
+
             return redirect()
-                ->route('users.index')
+                ->route('users.show', $user)
                 ->with('success', 'Password user berhasil diupdate!');
         } catch (Exception $e) {
+            DB::rollBack();
+
             return redirect()
                 ->back()
                 ->with('error', 'Gagal mengupdate password: ' . $e->getMessage());
@@ -135,13 +137,15 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        if ($user->id === Auth::id()) {
+            return redirect()->route('users.index')
+                ->with('error', 'Tidak dapat menghapus akun sendiri melalui User Management.');
+        }
+
         DB::beginTransaction();
 
         try {
-
-            // Delete user
             $user->delete();
-
             DB::commit();
 
             return redirect()
@@ -155,5 +159,4 @@ class UserController extends Controller
                 ->with('error', 'Gagal menghapus user: ' . $e->getMessage());
         }
     }
-
 }

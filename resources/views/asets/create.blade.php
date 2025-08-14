@@ -816,30 +816,30 @@
             updateKodeBarang();
         });
 
-       document.getElementById('sub_sub_rincian_objek')?.addEventListener('change', function() {
-    selectedHierarchy.subSubRincianObjek = getSelectedOption(this);
-    
-    // Auto-fill Nama Jenis Barang ketika Sub Sub Rincian Objek dipilih
-    if (selectedHierarchy.subSubRincianObjek && selectedHierarchy.subSubRincianObjek.nama) {
-        const namaJenisBarangInput = document.querySelector('input[name="nama_jenis_barang"]');
-        if (namaJenisBarangInput) {
-            // Gunakan nama_barang dari Sub Sub Rincian Objek untuk mengisi Nama Jenis Barang
-            namaJenisBarangInput.value = selectedHierarchy.subSubRincianObjek.nama;
-            // Tambahkan class untuk menandai field yang auto-filled
-            namaJenisBarangInput.classList.add('auto-filled');
-        }
-    } else {
-        // Clear field jika tidak ada pilihan
-        const namaJenisBarangInput = document.querySelector('input[name="nama_jenis_barang"]');
-        if (namaJenisBarangInput) {
-            namaJenisBarangInput.value = '';
-            namaJenisBarangInput.classList.remove('auto-filled');
-        }
-    }
-    
-    updateHierarchyDisplay();
-    updateKodeBarang();
-});
+        document.getElementById('sub_sub_rincian_objek')?.addEventListener('change', function() {
+            selectedHierarchy.subSubRincianObjek = getSelectedOption(this);
+
+            // Auto-fill Nama Jenis Barang ketika Sub Sub Rincian Objek dipilih
+            if (selectedHierarchy.subSubRincianObjek && selectedHierarchy.subSubRincianObjek.nama) {
+                const namaJenisBarangInput = document.querySelector('input[name="nama_jenis_barang"]');
+                if (namaJenisBarangInput) {
+                    // Gunakan nama_barang dari Sub Sub Rincian Objek untuk mengisi Nama Jenis Barang
+                    namaJenisBarangInput.value = selectedHierarchy.subSubRincianObjek.nama;
+                    // Tambahkan class untuk menandai field yang auto-filled
+                    namaJenisBarangInput.classList.add('auto-filled');
+                }
+            } else {
+                // Clear field jika tidak ada pilihan
+                const namaJenisBarangInput = document.querySelector('input[name="nama_jenis_barang"]');
+                if (namaJenisBarangInput) {
+                    namaJenisBarangInput.value = '';
+                    namaJenisBarangInput.classList.remove('auto-filled');
+                }
+            }
+
+            updateHierarchyDisplay();
+            updateKodeBarang();
+        });
 
         // Form submission handler
         document.getElementById('assetForm')?.addEventListener('submit', function(e) {
@@ -1046,36 +1046,36 @@
     }
 
     function loadSubSubRincianObjeks(subRincianObjekId) {
-    const select = document.getElementById('sub_sub_rincian_objek');
-    if (!select) return;
+        const select = document.getElementById('sub_sub_rincian_objek');
+        if (!select) return;
 
-    showLoading('sub-sub-rincian-objek');
+        showLoading('sub-sub-rincian-objek');
 
-    fetch(`/api/asets/sub-sub-rincian-objeks/${subRincianObjekId}`)
-        .then(response => {
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                // PENTING: Gunakan 'nama_barang' sebagai nameField untuk SubSubRincianObjek
-                populateSelect(select, data.data, 'Pilih Sub Sub Rincian Objek', 'nama_barang');
-                select.disabled = data.data.length === 0;
-                hideError('sub-sub-rincian-objek');
-            } else {
-                showError('sub-sub-rincian-objek', data.message || 'Gagal memuat data sub sub rincian objek');
+        fetch(`/api/asets/sub-sub-rincian-objeks/${subRincianObjekId}`)
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    // PENTING: Gunakan 'nama_barang' sebagai nameField untuk SubSubRincianObjek
+                    populateSelect(select, data.data, 'Pilih Sub Sub Rincian Objek', 'nama_barang');
+                    select.disabled = data.data.length === 0;
+                    hideError('sub-sub-rincian-objek');
+                } else {
+                    showError('sub-sub-rincian-objek', data.message || 'Gagal memuat data sub sub rincian objek');
+                    select.disabled = true;
+                }
+            })
+            .catch(error => {
+                console.error('Error loading sub sub rincian objeks:', error);
+                showError('sub-sub-rincian-objek', 'Terjadi kesalahan saat memuat data');
                 select.disabled = true;
-            }
-        })
-        .catch(error => {
-            console.error('Error loading sub sub rincian objeks:', error);
-            showError('sub-sub-rincian-objek', 'Terjadi kesalahan saat memuat data');
-            select.disabled = true;
-        })
-        .finally(() => {
-            hideLoading('sub-sub-rincian-objek');
-        });
-}
+            })
+            .finally(() => {
+                hideLoading('sub-sub-rincian-objek');
+            });
+    }
 
     function populateSelect(select, data, placeholder, nameField = 'nama') {
         if (!select) return;
@@ -1095,61 +1095,61 @@
     }
 
     function resetDropdowns(dropdownIds) {
-    dropdownIds.forEach(id => {
-        const select = document.getElementById(id);
-        if (select) {
-            select.innerHTML = '<option value="">Pilih...</option>';
-            select.disabled = true;
-            const errorId = id.replace(/_/g, '-');
-            hideError(errorId);
+        dropdownIds.forEach(id => {
+            const select = document.getElementById(id);
+            if (select) {
+                select.innerHTML = '<option value="">Pilih...</option>';
+                select.disabled = true;
+                const errorId = id.replace(/_/g, '-');
+                hideError(errorId);
 
-            // Clear from selectedHierarchy
-            const key = id.replace(/_/g, '').replace('objek', 'Objek');
-            if (selectedHierarchy[key]) {
-                delete selectedHierarchy[key];
-            }
+                // Clear from selectedHierarchy
+                const key = id.replace(/_/g, '').replace('objek', 'Objek');
+                if (selectedHierarchy[key]) {
+                    delete selectedHierarchy[key];
+                }
 
-            // Clear Nama Bidang Barang jika sub_rincian_objek di-reset
-            if (id === 'sub_rincian_objek') {
-                const namaBidangBarangInput = document.querySelector('input[name="nama_bidang_barang"]');
-                if (namaBidangBarangInput) {
-                    namaBidangBarangInput.value = '';
-                    namaBidangBarangInput.classList.remove('auto-filled');
+                // Clear Nama Bidang Barang jika sub_rincian_objek di-reset
+                if (id === 'sub_rincian_objek') {
+                    const namaBidangBarangInput = document.querySelector('input[name="nama_bidang_barang"]');
+                    if (namaBidangBarangInput) {
+                        namaBidangBarangInput.value = '';
+                        namaBidangBarangInput.classList.remove('auto-filled');
+                    }
+                }
+
+                // TAMBAHAN BARU: Clear Nama Jenis Barang jika sub_sub_rincian_objek di-reset
+                if (id === 'sub_sub_rincian_objek') {
+                    const namaJenisBarangInput = document.querySelector('input[name="nama_jenis_barang"]');
+                    if (namaJenisBarangInput) {
+                        namaJenisBarangInput.value = '';
+                        namaJenisBarangInput.classList.remove('auto-filled');
+                    }
                 }
             }
-            
-            // TAMBAHAN BARU: Clear Nama Jenis Barang jika sub_sub_rincian_objek di-reset
-            if (id === 'sub_sub_rincian_objek') {
-                const namaJenisBarangInput = document.querySelector('input[name="nama_jenis_barang"]');
-                if (namaJenisBarangInput) {
-                    namaJenisBarangInput.value = '';
-                    namaJenisBarangInput.classList.remove('auto-filled');
-                }
-            }
-        }
-    });
-}
+        });
+    }
 
     function resetAllDropdowns() {
-    resetDropdowns(['kelompok', 'jenis', 'objek', 'rincian_objek', 'sub_rincian_objek', 'sub_sub_rincian_objek']);
-    hideKodePreview();
-    selectedHierarchy = {};
-    updateHierarchyDisplay();
-    
-    // TAMBAHAN BARU: Clear kedua field auto-filled
-    const namaBidangBarangInput = document.querySelector('input[name="nama_bidang_barang"]');
-    const namaJenisBarangInput = document.querySelector('input[name="nama_jenis_barang"]');
-    
-    if (namaBidangBarangInput) {
-        namaBidangBarangInput.value = '';
-        namaBidangBarangInput.classList.remove('auto-filled');
+        resetDropdowns(['kelompok', 'jenis', 'objek', 'rincian_objek', 'sub_rincian_objek', 'sub_sub_rincian_objek']);
+        hideKodePreview();
+        selectedHierarchy = {};
+        updateHierarchyDisplay();
+
+        // TAMBAHAN BARU: Clear kedua field auto-filled
+        const namaBidangBarangInput = document.querySelector('input[name="nama_bidang_barang"]');
+        const namaJenisBarangInput = document.querySelector('input[name="nama_jenis_barang"]');
+
+        if (namaBidangBarangInput) {
+            namaBidangBarangInput.value = '';
+            namaBidangBarangInput.classList.remove('auto-filled');
+        }
+
+        if (namaJenisBarangInput) {
+            namaJenisBarangInput.value = '';
+            namaJenisBarangInput.classList.remove('auto-filled');
+        }
     }
-    
-    if (namaJenisBarangInput) {
-        namaJenisBarangInput.value = '';
-        namaJenisBarangInput.classList.remove('auto-filled');
-    }
-}
 
     function showLoading(type) {
         const loadingElement = document.getElementById(`loading-${type}`);

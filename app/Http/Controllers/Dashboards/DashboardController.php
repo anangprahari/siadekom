@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
@@ -71,37 +71,10 @@ class DashboardController extends Controller
             // STATISTIK ASET LANCAR
             $totalAsetLancar = AsetLancar::count();
             $nilaiSaldoAkhirTotal = AsetLancar::sum('saldo_akhir_total');
-            $nilaiSaldoAwalTotal = AsetLancar::sum('saldo_awal_total');
-            $nilaiMutasiTambah = AsetLancar::sum('mutasi_tambah_nilai_total');
 
             // STATISTIK PENGGUNA
             $totalPengguna = User::count();
             $penggunaBaru = User::where('created_at', '>=', Carbon::now()->subDays(30))->count();
-
-            // STATISTIK TAMBAHAN
-            // Top 5 jenis barang terbanyak (Aset Tetap)
-            $topJenisBarang = Aset::select('nama_jenis_barang', DB::raw('count(*) as total'))
-                ->whereHas('subSubRincianObjek.subRincianObjek.rincianObjek.objek.jenis.kelompok', function ($q) {
-                    $q->where('kode', '1.3');
-                })
-                ->groupBy('nama_jenis_barang')
-                ->orderBy('total', 'desc')
-                ->limit(5)
-                ->get();
-
-            // Aset berdasarkan tahun perolehan (5 tahun terakhir) - Aset Tetap
-            $asetPerTahun = Aset::select(
-                'tahun_perolehan',
-                DB::raw('count(*) as jumlah'),
-                DB::raw('sum(harga_satuan) as nilai_total')
-            )
-                ->whereHas('subSubRincianObjek.subRincianObjek.rincianObjek.objek.jenis.kelompok', function ($q) {
-                    $q->where('kode', '1.3');
-                })
-                ->where('tahun_perolehan', '>=', Carbon::now()->year - 4)
-                ->groupBy('tahun_perolehan')
-                ->orderBy('tahun_perolehan', 'desc')
-                ->get();
 
             // Aktivitas bulan ini
             $asetTetapBulanIni = Aset::whereHas('subSubRincianObjek.subRincianObjek.rincianObjek.objek.jenis.kelompok', function ($q) {
@@ -122,12 +95,17 @@ class DashboardController extends Controller
                 ->whereYear('created_at', Carbon::now()->year)
                 ->count();
 
-            // STATISTIK GABUNGAN
-            $totalSemuaAset = $totalAsetTetap + $totalAsetLainnya + $totalAsetLancar;
-            $totalNilaiSemuaAset = $nilaiTotalAsetTetap + $nilaiTotalAsetLainnya + $nilaiSaldoAkhirTotal;
-            $totalAsetBaik = $asetBaik + $asetLainnyaBaik;
-            $totalAsetBermasalah = ($asetKurangBaik + $asetRusakBerat) + ($asetLainnyaKurangBaik + $asetLainnyaRusakBerat);
-            $totalAktivitasBulanIni = $asetTetapBulanIni + $asetLainnyaBulanIni + $asetLancarBulanIni;
+            // Log untuk debugging
+            Log::info('Dashboard Data:', [
+                'totalAsetTetap' => $totalAsetTetap,
+                'asetBaik' => $asetBaik,
+                'asetKurangBaik' => $asetKurangBaik,
+                'asetRusakBerat' => $asetRusakBerat,
+                'totalAsetLainnya' => $totalAsetLainnya,
+                'asetLainnyaBaik' => $asetLainnyaBaik,
+                'asetLainnyaKurangBaik' => $asetLainnyaKurangBaik,
+                'asetLainnyaRusakBerat' => $asetLainnyaRusakBerat
+            ]);
 
             return view('dashboard', compact(
                 // Aset Tetap
@@ -151,134 +129,23 @@ class DashboardController extends Controller
                 // Aset Lancar
                 'totalAsetLancar',
                 'nilaiSaldoAkhirTotal',
-                'nilaiSaldoAwalTotal',
-                'nilaiMutasiTambah',
                 'asetLancarBulanIni',
 
                 // Pengguna
                 'totalPengguna',
-                'penggunaBaru',
-
-                // Statistik Gabungan
-                'totalSemuaAset',
-                'totalNilaiSemuaAset',
-                'totalAsetBaik',
-                'totalAsetBermasalah',
-                'totalAktivitasBulanIni',
-
-                // Data untuk chart/grafik
-                'topJenisBarang',
-                'asetPerTahun'
+                'penggunaBaru'
             ));
         } catch (\Exception $e) {
+            Log::error('Dashboard Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString()
+            ]);
+
             return view('dashboard')->with('error', 'Terjadi kesalahan saat memuat data dashboard: ' . $e->getMessage());
         }
     }
 
     /**
-     * Get chart data for AJAX requests
-     */
-    public function getChartData(Request $request)
-    {
-        $type = $request->get('type');
-
-        try {
-            switch ($type) {
-                case 'aset_per_bulan':
-                    // Data aset tetap per bulan (12 bulan terakhir)
-                    $data = [];
-                    for ($i = 11; $i >= 0; $i--) {
-                        $date = Carbon::now()->subMonths($i);
-                        $count = Aset::whereMonth('created_at', $date->month)
-                            ->whereYear('created_at', $date->year)
-                            ->count();
-                        $data[] = [
-                            'month' => $date->format('M Y'),
-                            'count' => $count
-                        ];
-                    }
-                    return response()->json($data);
-
-                case 'kondisi_aset':
-                    // Data kondisi aset untuk pie chart
-                    $data = [
-                        ['label' => 'Baik', 'value' => Aset::where('keadaan_barang', 'B')->count()],
-                        ['label' => 'Kurang Baik', 'value' => Aset::where('keadaan_barang', 'KB')->count()],
-                        ['label' => 'Rusak Berat', 'value' => Aset::where('keadaan_barang', 'RB')->count()]
-                    ];
-                    return response()->json($data);
-
-                case 'nilai_aset_lancar':
-                    // Perbandingan saldo awal vs saldo akhir aset lancar
-                    $data = [
-                        ['label' => 'Saldo Awal', 'value' => AsetLancar::sum('saldo_awal_total')],
-                        ['label' => 'Saldo Akhir', 'value' => AsetLancar::sum('saldo_akhir_total')]
-                    ];
-                    return response()->json($data);
-
-                case 'aset_per_kategori':
-                    // Data aset per kategori
-                    $asetTetap = Aset::whereHas('subSubRincianObjek.subRincianObjek.rincianObjek.objek.jenis.kelompok', function ($q) {
-                        $q->where('kode', '1.3');
-                    })->count();
-
-                    $asetLainnya = Aset::whereHas('subSubRincianObjek.subRincianObjek.rincianObjek.objek.jenis.kelompok', function ($q) {
-                        $q->where('kode', '1.5');
-                    })->count();
-
-                    $asetLancar = AsetLancar::count();
-
-                    $data = [
-                        ['label' => 'Aset Tetap', 'value' => $asetTetap],
-                        ['label' => 'Aset Lainnya', 'value' => $asetLainnya],
-                        ['label' => 'Aset Lancar', 'value' => $asetLancar]
-                    ];
-                    return response()->json($data);
-
-                case 'trend_bulanan':
-                    // Trend penambahan aset per bulan (6 bulan terakhir)
-                    $data = [];
-                    for ($i = 5; $i >= 0; $i--) {
-                        $date = Carbon::now()->subMonths($i);
-
-                        $asetTetap = Aset::whereHas('subSubRincianObjek.subRincianObjek.rincianObjek.objek.jenis.kelompok', function ($q) {
-                            $q->where('kode', '1.3');
-                        })
-                            ->whereMonth('created_at', $date->month)
-                            ->whereYear('created_at', $date->year)
-                            ->count();
-
-                        $asetLainnya = Aset::whereHas('subSubRincianObjek.subRincianObjek.rincianObjek.objek.jenis.kelompok', function ($q) {
-                            $q->where('kode', '1.5');
-                        })
-                            ->whereMonth('created_at', $date->month)
-                            ->whereYear('created_at', $date->year)
-                            ->count();
-
-                        $asetLancar = AsetLancar::whereMonth('created_at', $date->month)
-                            ->whereYear('created_at', $date->year)
-                            ->count();
-
-                        $data[] = [
-                            'month' => $date->format('M Y'),
-                            'aset_tetap' => $asetTetap,
-                            'aset_lainnya' => $asetLainnya,
-                            'aset_lancar' => $asetLancar,
-                            'total' => $asetTetap + $asetLainnya + $asetLancar
-                        ];
-                    }
-                    return response()->json($data);
-
-                default:
-                    return response()->json(['error' => 'Invalid chart type'], 400);
-            }
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    }
-
-    /**
-     * Get dashboard summary for quick stats
+     * Get dashboard summary for API requests
      */
     public function getSummary()
     {
@@ -340,9 +207,41 @@ class DashboardController extends Controller
                 ]
             ]);
         } catch (\Exception $e) {
+            Log::error('Dashboard Summary Error: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan saat mengambil ringkasan data: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get recent activities for dashboard
+     */
+    public function getRecentActivities()
+    {
+        try {
+            $recentAssets = Aset::with(['subSubRincianObjek.subRincianObjek.rincianObjek'])
+                ->orderBy('created_at', 'desc')
+                ->limit(10)
+                ->get();
+
+            $recentAsetLancar = AsetLancar::orderBy('created_at', 'desc')
+                ->limit(5)
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'recent_assets' => $recentAssets,
+                    'recent_aset_lancar' => $recentAsetLancar
+                ]
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Recent Activities Error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mengambil aktivitas terbaru: ' . $e->getMessage()
             ], 500);
         }
     }

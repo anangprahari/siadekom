@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.32/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.32/sweetalert2.min.css"
+        rel="stylesheet">
     <style>
         :root {
             --primary-color: #2563eb;
@@ -47,7 +49,8 @@
             margin-bottom: 0.5rem;
         }
 
-        .dropdown-section, .section-card {
+        .dropdown-section,
+        .section-card {
             background: var(--light-color);
             border-radius: 14px;
             padding: 1.5rem;
@@ -75,7 +78,8 @@
             font-weight: bold;
         }
 
-        .form-control, .form-select {
+        .form-control,
+        .form-select {
             border: 2px solid #e2e8f0;
             border-radius: 9px;
             padding: 0.65rem 0.9rem;
@@ -83,13 +87,15 @@
             font-size: 0.9rem;
         }
 
-        .form-control:focus, .form-select:focus {
+        .form-control:focus,
+        .form-select:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.18rem rgba(37, 99, 235, 0.25);
             outline: none;
         }
 
-        .form-control.is-invalid, .form-select.is-invalid {
+        .form-control.is-invalid,
+        .form-select.is-invalid {
             border-color: var(--danger-color);
         }
 
@@ -197,6 +203,7 @@
                 opacity: 0;
                 transform: translateY(15px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -209,7 +216,8 @@
                 margin: 1rem;
                 padding: 1.3rem;
             }
-            .row > div {
+
+            .row>div {
                 margin-bottom: 1rem;
             }
         }
@@ -218,7 +226,10 @@
             .form-container {
                 padding: 1rem;
             }
-            .calculation-section, .dropdown-section, .section-card {
+
+            .calculation-section,
+            .dropdown-section,
+            .section-card {
                 padding: 1rem;
             }
         }
@@ -227,6 +238,7 @@
             .main-container {
                 padding: 1rem 0;
             }
+
             .form-container {
                 margin: 0.5rem;
                 padding: 1rem;
@@ -234,6 +246,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container-fluid main-container">
         <div class="form-container fade-in">
@@ -249,7 +262,7 @@
                 </nav>
             </div>
 
-            @if(session('success'))
+            @if (session('success'))
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         Swal.fire({
@@ -263,11 +276,11 @@
                 </script>
             @endif
 
-            @if(session('error') || $errors->any())
+            @if (session('error') || $errors->any())
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         let errorMessages = '';
-                        @if(session('error'))
+                        @if (session('error'))
                             errorMessages += '{{ session('error') }}\n';
                         @endif
                         @foreach ($errors->all() as $error)
@@ -297,14 +310,15 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Rekening Uraian <span class="required-field">*</span></label>
-                                        <select class="form-select @error('rekening_uraian_id') is-invalid @enderror" 
-                                                id="rekening_uraian_id" name="rekening_uraian_id" required>
+                                        <label class="form-label">Rekening Uraian <span
+                                                class="required-field">*</span></label>
+                                        <select class="form-select @error('rekening_uraian_id') is-invalid @enderror"
+                                            id="rekening_uraian_id" name="rekening_uraian_id" required>
                                             <option value="">Pilih Rekening Uraian</option>
-                                            @foreach($rekeningUraians as $rekening)
-                                                <option value="{{ $rekening->id }}" 
-                                                        {{ old('rekening_uraian_id', $asetLancar->rekening_uraian_id) == $rekening->id ? 'selected' : '' }}
-                                                        data-kode="{{ $rekening->kode_rekening }}">
+                                            @foreach ($rekeningUraians as $rekening)
+                                                <option value="{{ $rekening->id }}"
+                                                    {{ old('rekening_uraian_id', $asetLancar->rekening_uraian_id) == $rekening->id ? 'selected' : '' }}
+                                                    data-kode="{{ $rekening->kode_rekening }}">
                                                     {{ $rekening->kode_rekening }} - {{ $rekening->uraian }}
                                                 </option>
                                             @endforeach
@@ -325,11 +339,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Nama Kegiatan <span class="required-field">*</span></label>
-                                        <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" 
-                                               id="nama_kegiatan" name="nama_kegiatan" 
-                                               value="{{ old('nama_kegiatan', $asetLancar->nama_kegiatan) }}" 
-                                               placeholder="Masukkan nama kegiatan" required>
+                                        <label class="form-label">Nama Kegiatan <span
+                                                class="required-field">*</span></label>
+                                        <input type="text"
+                                            class="form-control @error('nama_kegiatan') is-invalid @enderror"
+                                            id="nama_kegiatan" name="nama_kegiatan"
+                                            value="{{ old('nama_kegiatan', $asetLancar->nama_kegiatan) }}"
+                                            placeholder="Masukkan nama kegiatan" required>
                                         @error('nama_kegiatan')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -338,10 +354,11 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Jenis Barang</label>
-                                        <input type="text" class="form-control @error('uraian_jenis_barang') is-invalid @enderror" 
-                                               id="uraian_jenis_barang" name="uraian_jenis_barang" 
-                                               value="{{ old('uraian_jenis_barang', $asetLancar->uraian_jenis_barang) }}" 
-                                               placeholder="Masukkan jenis barang">
+                                        <input type="text"
+                                            class="form-control @error('uraian_jenis_barang') is-invalid @enderror"
+                                            id="uraian_jenis_barang" name="uraian_jenis_barang"
+                                            value="{{ old('uraian_jenis_barang', $asetLancar->uraian_jenis_barang) }}"
+                                            placeholder="Masukkan jenis barang">
                                         @error('uraian_jenis_barang')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -350,9 +367,8 @@
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label class="form-label">Uraian Kegiatan</label>
-                                        <textarea class="form-control @error('uraian_kegiatan') is-invalid @enderror" 
-                                                  id="uraian_kegiatan" name="uraian_kegiatan" rows="4"
-                                                  placeholder="Masukkan uraian kegiatan">{{ old('uraian_kegiatan', $asetLancar->uraian_kegiatan) }}</textarea>
+                                        <textarea class="form-control @error('uraian_kegiatan') is-invalid @enderror" id="uraian_kegiatan"
+                                            name="uraian_kegiatan" rows="4" placeholder="Masukkan uraian kegiatan">{{ old('uraian_kegiatan', $asetLancar->uraian_kegiatan) }}</textarea>
                                         @error('uraian_kegiatan')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -369,11 +385,13 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label class="form-label">Unit Barang <span class="required-field">*</span></label>
-                                        <input type="number" class="form-control @error('saldo_awal_unit') is-invalid @enderror" 
-                                               id="saldo_awal_unit" name="saldo_awal_unit" 
-                                               value="{{ old('saldo_awal_unit', $asetLancar->saldo_awal_unit) }}" 
-                                               min="0" step="1" required>
+                                        <label class="form-label">Unit Barang <span
+                                                class="required-field">*</span></label>
+                                        <input type="number"
+                                            class="form-control @error('saldo_awal_unit') is-invalid @enderror"
+                                            id="saldo_awal_unit" name="saldo_awal_unit"
+                                            value="{{ old('saldo_awal_unit', $asetLancar->saldo_awal_unit) }}"
+                                            min="0" step="1" required>
                                         @error('saldo_awal_unit')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -381,13 +399,15 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label class="form-label">Harga Satuan <span class="required-field">*</span></label>
+                                        <label class="form-label">Harga Satuan <span
+                                                class="required-field">*</span></label>
                                         <div class="input-group">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="number" class="form-control @error('saldo_awal_harga_satuan') is-invalid @enderror" 
-                                                   id="saldo_awal_harga_satuan" name="saldo_awal_harga_satuan" 
-                                                   value="{{ old('saldo_awal_harga_satuan', $asetLancar->saldo_awal_harga_satuan) }}" 
-                                                   min="0" step="0.01" required>
+                                            <input type="number"
+                                                class="form-control @error('saldo_awal_harga_satuan') is-invalid @enderror"
+                                                id="saldo_awal_harga_satuan" name="saldo_awal_harga_satuan"
+                                                value="{{ old('saldo_awal_harga_satuan', $asetLancar->saldo_awal_harga_satuan) }}"
+                                                min="0" step="0.01" required>
                                         </div>
                                         @error('saldo_awal_harga_satuan')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -396,12 +416,13 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label class="form-label">Total Nilai <small class="text-success">(Otomatis)</small></label>
+                                        <label class="form-label">Total Nilai <small
+                                                class="text-success">(Otomatis)</small></label>
                                         <div class="input-group">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="text" class="form-control auto-filled" 
-                                                   id="saldo_awal_total" readonly 
-                                                   value="{{ number_format($asetLancar->saldo_awal_total, 0) }}">
+                                            <input type="text" class="form-control auto-filled"
+                                                id="saldo_awal_total" readonly
+                                                value="{{ number_format($asetLancar->saldo_awal_total, 0) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -420,10 +441,11 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Unit Barang</label>
-                                        <input type="number" class="form-control @error('mutasi_tambah_unit') is-invalid @enderror" 
-                                               id="mutasi_tambah_unit" name="mutasi_tambah_unit" 
-                                               value="{{ old('mutasi_tambah_unit', $asetLancar->mutasi_tambah_unit) }}" 
-                                               min="0" step="1">
+                                        <input type="number"
+                                            class="form-control @error('mutasi_tambah_unit') is-invalid @enderror"
+                                            id="mutasi_tambah_unit" name="mutasi_tambah_unit"
+                                            value="{{ old('mutasi_tambah_unit', $asetLancar->mutasi_tambah_unit) }}"
+                                            min="0" step="1">
                                         @error('mutasi_tambah_unit')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -434,10 +456,11 @@
                                         <label class="form-label">Harga Satuan</label>
                                         <div class="input-group">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="number" class="form-control @error('mutasi_tambah_harga_satuan') is-invalid @enderror" 
-                                                   id="mutasi_tambah_harga_satuan" name="mutasi_tambah_harga_satuan" 
-                                                   value="{{ old('mutasi_tambah_harga_satuan', $asetLancar->mutasi_tambah_harga_satuan) }}" 
-                                                   min="0" step="0.01">
+                                            <input type="number"
+                                                class="form-control @error('mutasi_tambah_harga_satuan') is-invalid @enderror"
+                                                id="mutasi_tambah_harga_satuan" name="mutasi_tambah_harga_satuan"
+                                                value="{{ old('mutasi_tambah_harga_satuan', $asetLancar->mutasi_tambah_harga_satuan) }}"
+                                                min="0" step="0.01">
                                         </div>
                                         @error('mutasi_tambah_harga_satuan')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -446,12 +469,13 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label class="form-label">Total Nilai <small class="text-success">(Otomatis)</small></label>
+                                        <label class="form-label">Total Nilai <small
+                                                class="text-success">(Otomatis)</small></label>
                                         <div class="input-group">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="text" class="form-control auto-filled" 
-                                                   id="mutasi_tambah_nilai_total" readonly 
-                                                   value="{{ number_format($asetLancar->mutasi_tambah_nilai_total, 0) }}">
+                                            <input type="text" class="form-control auto-filled"
+                                                id="mutasi_tambah_nilai_total" readonly
+                                                value="{{ number_format($asetLancar->mutasi_tambah_nilai_total, 0) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -464,10 +488,11 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Unit Barang</label>
-                                        <input type="number" class="form-control @error('mutasi_kurang_unit') is-invalid @enderror" 
-                                               id="mutasi_kurang_unit" name="mutasi_kurang_unit" 
-                                               value="{{ old('mutasi_kurang_unit', $asetLancar->mutasi_kurang_unit) }}" 
-                                               min="0" step="1">
+                                        <input type="number"
+                                            class="form-control @error('mutasi_kurang_unit') is-invalid @enderror"
+                                            id="mutasi_kurang_unit" name="mutasi_kurang_unit"
+                                            value="{{ old('mutasi_kurang_unit', $asetLancar->mutasi_kurang_unit) }}"
+                                            min="0" step="1">
                                         @error('mutasi_kurang_unit')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -475,13 +500,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Total Nilai <small class="text-muted">(Otomatis jika kosong)</small></label>
+                                        <label class="form-label">Total Nilai <small class="text-muted">(Otomatis jika
+                                                kosong)</small></label>
                                         <div class="input-group">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="number" class="form-control @error('mutasi_kurang_nilai_total') is-invalid @enderror" 
-                                                   id="mutasi_kurang_nilai_total" name="mutasi_kurang_nilai_total" 
-                                                   value="{{ old('mutasi_kurang_nilai_total', $asetLancar->mutasi_kurang_nilai_total) }}" 
-                                                   min="0" step="0.01">
+                                            <input type="number"
+                                                class="form-control @error('mutasi_kurang_nilai_total') is-invalid @enderror"
+                                                id="mutasi_kurang_nilai_total" name="mutasi_kurang_nilai_total"
+                                                value="{{ old('mutasi_kurang_nilai_total', $asetLancar->mutasi_kurang_nilai_total) }}"
+                                                min="0" step="0.01">
                                         </div>
                                         @error('mutasi_kurang_nilai_total')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -498,13 +525,17 @@
                         <div class="hierarchy-display fade-in">
                             <h6><i class="fas fa-database"></i> Data Saat Ini</h6>
                             <div class="hierarchy-item">
-                                <span class="hierarchy-level">Rekening:</span> {{ $asetLancar->rekeningUraian->kode_rekening }} - {{ $asetLancar->rekeningUraian->uraian }}
+                                <span class="hierarchy-level">Rekening:</span>
+                                {{ $asetLancar->rekeningUraian->kode_rekening }} -
+                                {{ $asetLancar->rekeningUraian->uraian }}
                             </div>
                             <div class="hierarchy-item">
-                                <span class="hierarchy-level">Dibuat:</span> {{ $asetLancar->created_at->format('d F Y H:i') }}
+                                <span class="hierarchy-level">Dibuat:</span>
+                                {{ $asetLancar->created_at->format('d F Y H:i') }}
                             </div>
                             <div class="hierarchy-item">
-                                <span class="hierarchy-level">Diperbarui:</span> {{ $asetLancar->updated_at->format('d F Y H:i') }}
+                                <span class="hierarchy-level">Diperbarui:</span>
+                                {{ $asetLancar->updated_at->format('d F Y H:i') }}
                             </div>
                         </div>
 
@@ -516,29 +547,32 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Unit Barang <small class="text-warning">(Otomatis)</small></label>
+                                        <label class="form-label">Unit Barang <small
+                                                class="text-warning">(Otomatis)</small></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-box"></i></span>
-                                            <input type="text" class="form-control auto-filled text-warning" 
-                                                   id="saldo_akhir_unit_preview" readonly 
-                                                   value="{{ number_format($asetLancar->saldo_akhir_unit) }}">
+                                            <input type="text" class="form-control auto-filled text-warning"
+                                                id="saldo_akhir_unit_preview" readonly
+                                                value="{{ number_format($asetLancar->saldo_akhir_unit) }}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Total Nilai <small class="text-warning">(Otomatis)</small></label>
+                                        <label class="form-label">Total Nilai <small
+                                                class="text-warning">(Otomatis)</small></label>
                                         <div class="input-group">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="text" class="form-control auto-filled text-warning" 
-                                                   id="saldo_akhir_total_preview" readonly 
-                                                   value="{{ number_format($asetLancar->saldo_akhir_total, 0) }}">
+                                            <input type="text" class="form-control auto-filled text-warning"
+                                                id="saldo_akhir_total_preview" readonly
+                                                value="{{ number_format($asetLancar->saldo_akhir_total, 0) }}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="alert alert-info rounded-9 p-2">
-                                <small><i class="fas fa-info-circle me-1"></i> Nilai akan diperbarui secara otomatis saat form diubah</small>
+                                <small><i class="fas fa-info-circle me-1"></i> Nilai akan diperbarui secara otomatis
+                                    saat form diubah</small>
                             </div>
                         </div>
 
@@ -548,10 +582,14 @@
                                 <i class="fas fa-exclamation-triangle"></i> Aturan Validasi
                             </h4>
                             <ul class="list-unstyled mb-0">
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Harga satuan harus diisi (saldo awal atau mutasi tambah)</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Jika ada unit saldo awal, harga satuan saldo awal harus diisi</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Jika ada unit mutasi tambah, harga satuan mutasi tambah harus diisi</li>
-                                <li><i class="fas fa-check-circle text-success me-2"></i> Saldo akhir unit tidak boleh negatif</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Harga satuan
+                                    harus diisi (saldo awal atau mutasi tambah)</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Jika ada unit
+                                    saldo awal, harga satuan saldo awal harus diisi</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Jika ada unit
+                                    mutasi tambah, harga satuan mutasi tambah harus diisi</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i> Saldo akhir unit tidak boleh
+                                    negatif</li>
                             </ul>
                         </div>
 
@@ -617,9 +655,12 @@
                     const saldoAwalUnit = parseFloat(document.getElementById('saldo_awal_unit').value) || 0;
                     const mutasiTambahUnit = parseFloat(document.getElementById('mutasi_tambah_unit').value) || 0;
                     const mutasiKurangUnit = parseFloat(document.getElementById('mutasi_kurang_unit').value) || 0;
-                    const saldoAwalHarga = parseFloat(document.getElementById('saldo_awal_harga_satuan').value) || 0;
-                    const mutasiTambahHarga = parseFloat(document.getElementById('mutasi_tambah_harga_satuan').value) || 0;
-                    const mutasiKurangNilai = parseFloat(document.getElementById('mutasi_kurang_nilai_total').value) || 0;
+                    const saldoAwalHarga = parseFloat(document.getElementById('saldo_awal_harga_satuan').value) ||
+                    0;
+                    const mutasiTambahHarga = parseFloat(document.getElementById('mutasi_tambah_harga_satuan')
+                        .value) || 0;
+                    const mutasiKurangNilai = parseFloat(document.getElementById('mutasi_kurang_nilai_total')
+                        .value) || 0;
 
                     // Calculate saldo akhir unit
                     const saldoAkhirUnit = saldoAwalUnit + mutasiTambahUnit - mutasiKurangUnit;
@@ -633,7 +674,8 @@
                     }
 
                     // Calculate saldo akhir total
-                    const saldoAkhirTotal = saldoAkhirUnit > 0 && hargaUntukSaldoAkhir > 0 ? saldoAkhirUnit * hargaUntukSaldoAkhir : 0;
+                    const saldoAkhirTotal = saldoAkhirUnit > 0 && hargaUntukSaldoAkhir > 0 ? saldoAkhirUnit *
+                        hargaUntukSaldoAkhir : 0;
 
                     // Update preview
                     const unitField = document.getElementById('saldo_akhir_unit_preview');
@@ -683,11 +725,15 @@
             const form = document.getElementById('asetLancarForm');
             if (form) {
                 form.addEventListener('submit', function(e) {
-                    const saldoAwalHarga = parseFloat(document.getElementById('saldo_awal_harga_satuan').value) || 0;
-                    const mutasiTambahHarga = parseFloat(document.getElementById('mutasi_tambah_harga_satuan').value) || 0;
+                    const saldoAwalHarga = parseFloat(document.getElementById('saldo_awal_harga_satuan')
+                        .value) || 0;
+                    const mutasiTambahHarga = parseFloat(document.getElementById(
+                        'mutasi_tambah_harga_satuan').value) || 0;
                     const saldoAwalUnit = parseFloat(document.getElementById('saldo_awal_unit').value) || 0;
-                    const mutasiTambahUnit = parseFloat(document.getElementById('mutasi_tambah_unit').value) || 0;
-                    const mutasiKurangUnit = parseFloat(document.getElementById('mutasi_kurang_unit').value) || 0;
+                    const mutasiTambahUnit = parseFloat(document.getElementById('mutasi_tambah_unit')
+                        .value) || 0;
+                    const mutasiKurangUnit = parseFloat(document.getElementById('mutasi_kurang_unit')
+                        .value) || 0;
                     const saldoAkhirUnit = saldoAwalUnit + mutasiTambahUnit - mutasiKurangUnit;
 
                     // Validation
@@ -751,4 +797,5 @@
         });
     </script>
 </body>
+
 </html>

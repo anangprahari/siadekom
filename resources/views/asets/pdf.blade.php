@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,13 +10,13 @@
             margin: 2cm 1.5cm 3cm 1.5cm;
             font-family: 'DejaVu Sans', sans-serif;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'DejaVu Sans', sans-serif;
             font-size: 11px;
@@ -23,13 +24,13 @@
             color: #2d3748;
             background-color: #ffffff;
         }
-        
+
         .container {
             max-width: 100%;
             margin: 0 auto;
             padding: 0;
         }
-        
+
         /* Header Styles */
         .header {
             text-align: center;
@@ -38,7 +39,7 @@
             border-bottom: 3px solid #2b6cb0;
             background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
         }
-        
+
         .header h1 {
             font-size: 20px;
             font-weight: bold;
@@ -47,26 +48,26 @@
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-        
+
         .header .subtitle {
             font-size: 14px;
             color: #2b6cb0;
             font-weight: 600;
             margin-bottom: 5px;
         }
-        
+
         .header .generated-info {
             font-size: 9px;
             color: #718096;
             font-style: italic;
         }
-        
+
         /* Section Styles */
         .section {
             margin-bottom: 20px;
             page-break-inside: avoid;
         }
-        
+
         .section-title {
             font-size: 13px;
             font-weight: bold;
@@ -79,22 +80,22 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
+
         /* Table Styles */
         .info-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 5px;
         }
-        
+
         .info-table tr {
             border-bottom: 1px solid #e2e8f0;
         }
-        
+
         .info-table tr:last-child {
             border-bottom: none;
         }
-        
+
         .info-label {
             width: 35%;
             padding: 8px 12px 8px 0;
@@ -103,7 +104,7 @@
             vertical-align: top;
             background-color: #f9fafb;
         }
-        
+
         .info-value {
             width: 65%;
             padding: 8px 0 8px 12px;
@@ -111,7 +112,7 @@
             vertical-align: top;
             word-wrap: break-word;
         }
-        
+
         /* Hierarchy Section */
         .hierarchy-section {
             background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
@@ -119,9 +120,9 @@
             margin-bottom: 25px;
             border-radius: 8px;
             border: 1px solid #90cdf4;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         .hierarchy-section .section-title {
             background-color: #3182ce;
             color: white;
@@ -129,7 +130,7 @@
             border-radius: 8px 8px 0 0;
             border-left: none;
         }
-        
+
         /* Financial Section */
         .financial-section {
             background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
@@ -137,9 +138,9 @@
             margin: 20px 0;
             border-radius: 8px;
             border: 1px solid #f59e0b;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         .financial-section .section-title {
             background-color: #d97706;
             color: white;
@@ -147,7 +148,7 @@
             border-radius: 8px 8px 0 0;
             border-left: none;
         }
-        
+
         .financial-highlight {
             background-color: #fbbf24;
             color: #92400e;
@@ -156,7 +157,7 @@
             font-weight: bold;
             font-size: 12px;
         }
-        
+
         /* Image Section */
         .image-section {
             text-align: center;
@@ -167,15 +168,15 @@
             border-radius: 8px;
             border: 1px solid #e2e8f0;
         }
-        
+
         .asset-image {
             max-width: 100%;
             max-height: 350px;
             border: 3px solid #cbd5e0;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         .no-image {
             background-color: #f7fafc;
             border: 2px dashed #a0aec0;
@@ -185,14 +186,14 @@
             border-radius: 8px;
             font-style: italic;
         }
-        
+
         .image-caption {
             margin-top: 8px;
             font-size: 9px;
             color: #718096;
             font-style: italic;
         }
-        
+
         /* Status Badge */
         .status-badge {
             display: inline-block;
@@ -203,25 +204,25 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
+
         .status-baik {
             background-color: #c6f6d5;
             color: #22543d;
             border: 1px solid #68d391;
         }
-        
+
         .status-kurang-baik {
             background-color: #fef5e7;
             color: #975a16;
             border: 1px solid #f6ad55;
         }
-        
+
         .status-rusak-berat {
             background-color: #fed7d7;
             color: #742a2a;
             border: 1px solid #fc8181;
         }
-        
+
         /* Document Info Section */
         .document-info {
             margin-top: 25px;
@@ -230,25 +231,25 @@
             border-radius: 8px;
             border: 1px solid #0ea5e9;
         }
-        
+
         .document-info .info-title {
             font-weight: bold;
             color: #0c4a6e;
             margin-bottom: 8px;
             font-size: 12px;
         }
-        
+
         .document-info .info-text {
             font-size: 10px;
             color: #0369a1;
             line-height: 1.4;
         }
-        
+
         .document-info .warning-text {
             color: #dc2626;
             font-weight: 600;
         }
-        
+
         /* Footer */
         .footer {
             position: fixed;
@@ -260,36 +261,73 @@
             color: #718096;
             border-top: 1px solid #e2e8f0;
             padding-top: 8px;
-            background-color: rgba(255,255,255,0.9);
+            background-color: rgba(255, 255, 255, 0.9);
         }
-        
+
         .footer .footer-line {
             margin: 2px 0;
         }
-        
+
         /* Spacing Utilities */
-        .mb-small { margin-bottom: 10px; }
-        .mb-medium { margin-bottom: 15px; }
-        .mb-large { margin-bottom: 20px; }
-        
-        .mt-small { margin-top: 10px; }
-        .mt-medium { margin-top: 15px; }
-        .mt-large { margin-top: 20px; }
-        
+        .mb-small {
+            margin-bottom: 10px;
+        }
+
+        .mb-medium {
+            margin-bottom: 15px;
+        }
+
+        .mb-large {
+            margin-bottom: 20px;
+        }
+
+        .mt-small {
+            margin-top: 10px;
+        }
+
+        .mt-medium {
+            margin-top: 15px;
+        }
+
+        .mt-large {
+            margin-top: 20px;
+        }
+
         /* Text Utilities */
-        .text-bold { font-weight: bold; }
-        .text-center { text-align: center; }
-        .text-small { font-size: 10px; }
-        .text-large { font-size: 13px; }
-        
+        .text-bold {
+            font-weight: bold;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-small {
+            font-size: 10px;
+        }
+
+        .text-large {
+            font-size: 13px;
+        }
+
         /* Print Optimizations */
         @media print {
-            .container { margin: 0; padding: 0; }
-            .section { page-break-inside: avoid; }
-            .image-section { page-break-inside: avoid; }
+            .container {
+                margin: 0;
+                padding: 0;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            .image-section {
+                page-break-inside: avoid;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Header -->
@@ -321,15 +359,18 @@
                 </tr>
                 <tr>
                     <td class="info-label">Rincian Objek:</td>
-                    <td class="info-value">{{ $hierarchy['rincianObjek']->kode }} - {{ $hierarchy['rincianObjek']->nama }}</td>
+                    <td class="info-value">{{ $hierarchy['rincianObjek']->kode }} -
+                        {{ $hierarchy['rincianObjek']->nama }}</td>
                 </tr>
                 <tr>
                     <td class="info-label">Sub Rincian Objek:</td>
-                    <td class="info-value">{{ $hierarchy['subRincianObjek']->kode }} - {{ $hierarchy['subRincianObjek']->nama }}</td>
+                    <td class="info-value">{{ $hierarchy['subRincianObjek']->kode }} -
+                        {{ $hierarchy['subRincianObjek']->nama }}</td>
                 </tr>
                 <tr>
                     <td class="info-label">Sub Sub Rincian Objek:</td>
-                    <td class="info-value">{{ $hierarchy['subSubRincianObjek']->kode }} - {{ $hierarchy['subSubRincianObjek']->nama_barang }}</td>
+                    <td class="info-value">{{ $hierarchy['subSubRincianObjek']->kode }} -
+                        {{ $hierarchy['subSubRincianObjek']->nama_barang }}</td>
                 </tr>
             </table>
         </div>
@@ -415,7 +456,8 @@
                 <tr>
                     <td class="info-label">Keadaan Barang:</td>
                     <td class="info-value">
-                        <span class="status-badge status-{{ strtolower(str_replace(' ', '-', $aset->keadaan_barang)) }}">
+                        <span
+                            class="status-badge status-{{ strtolower(str_replace(' ', '-', $aset->keadaan_barang)) }}">
                             {{ $aset->keadaan_barang }}
                         </span>
                     </td>
@@ -445,7 +487,7 @@
         <!-- Foto Bukti Barang -->
         <div class="image-section section">
             <div class="section-title">Dokumentasi Bukti Barang</div>
-            @if($imageBase64)
+            @if ($imageBase64)
                 <img src="{{ $imageBase64 }}" alt="Bukti Barang {{ $aset->register }}" class="asset-image">
                 <p class="image-caption">
                     Nama File: {{ $aset->bukti_barang }}
@@ -459,12 +501,13 @@
         </div>
 
         <!-- Informasi Dokumen Bukti Berita -->
-        @if(isset($hasBuktiBerita) && $hasBuktiBerita)
+        @if (isset($hasBuktiBerita) && $hasBuktiBerita)
             <div class="document-info section">
                 <p class="info-title">📄 Dokumen Bukti Berita Tersedia</p>
                 <p class="info-text">
                     <strong>Nama File:</strong> {{ $aset->bukti_berita }}<br>
-                    <span class="warning-text">Catatan:</span> File PDF bukti berita tersedia terpisah. Silakan unduh dari halaman detail aset untuk melihat dokumen lengkap.
+                    <span class="warning-text">Catatan:</span> File PDF bukti berita tersedia terpisah. Silakan unduh
+                    dari halaman detail aset untuk melihat dokumen lengkap.
                 </p>
             </div>
         @endif
@@ -477,4 +520,5 @@
         </div>
     </div>
 </body>
+
 </html>

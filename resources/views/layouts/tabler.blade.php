@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }}</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/img/backgrounds/logokominfo.png') }}" />
@@ -11,12 +12,12 @@
     <!-- CSS files - URUTAN PENTING -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="{{ asset('dist/css/tabler.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('dist/css/tabler.min.css') }}" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-    
+
     <style>
         @import url('https://rsms.me/inter/inter.css');
-        
+
         :root {
             --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
             --sidebar-width: 220px;
@@ -60,7 +61,7 @@
         .dropdown-item {
             position: relative;
         }
-        
+
         .loading {
             position: absolute;
             right: 15px;
@@ -81,20 +82,21 @@
         }
 
         @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(15px); 
+            from {
+                opacity: 0;
+                transform: translateY(15px);
             }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
-
     </style>
 
     @stack('page-styles')
 </head>
+
 <body>
     {{-- Mobile Toggle Button --}}
     <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">
@@ -124,20 +126,20 @@
         @include('layouts.body.footer')
     </div>
 
-    <!-- Scripts - URUTAN SANGAT PENTING -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('dist/js/tabler.min.js') }}"></script>
+    <script src="{{ asset('js/shared-utilities.js') }}"></script> <!-- Ditambahkan di sini -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         console.log('Layout script starting...');
-        
+
         // Mobile sidebar functionality
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
-            
+
             if (sidebar && overlay) {
                 sidebar.classList.toggle('show');
                 overlay.classList.toggle('show');
@@ -148,7 +150,7 @@
         function closeSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
-            
+
             if (sidebar && overlay) {
                 sidebar.classList.remove('show');
                 overlay.classList.remove('show');
@@ -159,12 +161,12 @@
         // Initialize when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, initializing...');
-            
+
             // Mobile sidebar events
             document.addEventListener('click', function(event) {
                 const sidebar = document.getElementById('sidebar');
                 const toggle = document.querySelector('.mobile-toggle');
-                
+
                 if (window.innerWidth <= 768 && sidebar && toggle) {
                     if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
                         closeSidebar();
@@ -208,4 +210,5 @@
     @stack('page-scripts')
     @stack('scripts')
 </body>
+
 </html>

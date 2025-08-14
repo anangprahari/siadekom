@@ -666,14 +666,37 @@
             transform: translateY(20px);
         }
 
-        .sidebar .nav-link:nth-child(1) { animation-delay: 0.1s; }
-        .sidebar .nav-link:nth-child(2) { animation-delay: 0.15s; }
-        .sidebar .nav-link:nth-child(3) { animation-delay: 0.2s; }
-        .sidebar .nav-link:nth-child(4) { animation-delay: 0.25s; }
-        .sidebar .nav-link:nth-child(5) { animation-delay: 0.3s; }
-        .sidebar .nav-link:nth-child(6) { animation-delay: 0.35s; }
-        .sidebar .nav-link:nth-child(7) { animation-delay: 0.4s; }
-        .sidebar .nav-link:nth-child(8) { animation-delay: 0.45s; }
+        .sidebar .nav-link:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .sidebar .nav-link:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .sidebar .nav-link:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .sidebar .nav-link:nth-child(4) {
+            animation-delay: 0.25s;
+        }
+
+        .sidebar .nav-link:nth-child(5) {
+            animation-delay: 0.3s;
+        }
+
+        .sidebar .nav-link:nth-child(6) {
+            animation-delay: 0.35s;
+        }
+
+        .sidebar .nav-link:nth-child(7) {
+            animation-delay: 0.4s;
+        }
+
+        .sidebar .nav-link:nth-child(8) {
+            animation-delay: 0.45s;
+        }
 
         @keyframes fadeInUp {
             to {
@@ -737,6 +760,7 @@
         </div>
 
         <!-- Navigation -->
+        <!-- Navigation -->
         <nav class="nav flex-column nav-pills">
             <!-- Beranda -->
             <a class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}" href="{{ route('dashboard') }}">
@@ -748,7 +772,7 @@
                     <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
                     <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
                 </svg>
-                <span>{{ __('Dashboard') }}</span>
+                <span>{{ __('Beranda') }}</span>
             </a>
 
             <!-- Aset Dropdown -->
@@ -776,31 +800,17 @@
                 </div>
             </div>
 
-            <!-- Pengaturan Dropdown -->
-            <div class="nav-item">
-                <a class="nav-link has-dropdown {{ request()->is('users*', 'categories*', 'units*') ? 'active' : '' }}"
-                    href="#" onclick="toggleDropdown(event, 'pengaturanDropdown')" aria-expanded="false"
-                    role="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22"
-                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066
-                            c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426
-                            1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724
-                            1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066
-                            c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572
-                            c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573
-                            c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
-                        <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                    </svg>
-                    <span>{{ __('Pengaturan') }}</span>
-                </a>
-                <div class="dropdown-menu" id="pengaturanDropdown">
-                    <a class="dropdown-item" href="{{ route('users.index') }}">Pengguna</a>
-                    {{-- <a class="dropdown-item" href="{{ route('categories.index') }}">Kategori</a>
-                    <a class="dropdown-item" href="{{ route('units.index') }}">Unit</a> --}}
-                </div>
-            </div>
+            <!-- Pengguna (changed from Pengaturan) -->
+            <a class="nav-link {{ request()->is('users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22" viewBox="0 0 24 24"
+                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                </svg>
+                <span>{{ __('Pengguna') }}</span>
+            </a>
         </nav>
     </div>
 
@@ -887,7 +897,7 @@
         // =====================================
         // CORE FUNCTIONALITY
         // =====================================
-        
+
         class SidebarManager {
             constructor() {
                 this.sidebar = document.getElementById('sidebar');
@@ -904,10 +914,10 @@
             setupEventListeners() {
                 // Window resize handler
                 window.addEventListener('resize', () => this.handleResize());
-                
+
                 // Close sidebar when clicking outside on mobile
                 document.addEventListener('click', (event) => this.handleOutsideClick(event));
-                
+
                 // Keyboard navigation
                 document.addEventListener('keydown', (event) => this.handleKeyDown(event));
             }
@@ -1046,10 +1056,10 @@
                 if (!this.userDropdown) return;
 
                 const isOpen = this.userDropdown.classList.contains('show');
-                
+
                 // Close all sidebar dropdowns first
                 DropdownManager.closeAllDropdowns();
-                
+
                 if (!isOpen) {
                     this.userDropdown.classList.add('show');
                 } else {
@@ -1079,11 +1089,11 @@
                 $(document).on('show.bs.modal', '.modal', function() {
                     DropdownManager.closeAllDropdowns();
                     userDropdownManager.close();
-                    
+
                     const modal = $(this);
                     const zIndex = 1060 + $('.modal:visible').length * 10;
                     modal.css('z-index', zIndex);
-                    
+
                     setTimeout(() => {
                         $('.modal-backdrop').css('z-index', zIndex - 5);
                     }, 50);
@@ -1093,7 +1103,7 @@
                 $(document).on('hidden.bs.modal', '.modal', function() {
                     $('body').removeClass('modal-open');
                     $('.navbar .dropdown-toggle').css('pointer-events', 'auto');
-                    
+
                     if ($('.modal:visible').length === 0) {
                         modalZindex = 1060;
                     }
@@ -1114,12 +1124,12 @@
 
             static setupZIndexManagement() {
                 let modalZindex = 1060;
-                
+
                 $(document).on('show.bs.modal', '.modal', function() {
                     const currentModal = $(this);
                     modalZindex++;
                     currentModal.css('z-index', modalZindex);
-                    
+
                     setTimeout(() => {
                         $('.modal-backdrop').last().css('z-index', modalZindex - 1);
                     }, 50);
@@ -1131,7 +1141,7 @@
                     if (e.key === 'Escape') {
                         // Close user dropdown first
                         userDropdownManager.close();
-                        
+
                         // Then handle modal
                         const visibleModal = $('.modal:visible').last();
                         if (visibleModal.length) {
@@ -1145,7 +1155,7 @@
         // =====================================
         // GLOBAL FUNCTIONS (for backward compatibility)
         // =====================================
-        
+
         function toggleSidebar() {
             sidebarManager.toggle();
         }
@@ -1169,7 +1179,7 @@
         // =====================================
         // INITIALIZATION
         // =====================================
-        
+
         let sidebarManager, userDropdownManager;
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -1191,7 +1201,7 @@
             // Enhanced hover effects with performance optimization
             const hoverElements = document.querySelectorAll('.nav-link, .dropdown-item');
             let hoverTimeout;
-            
+
             hoverElements.forEach(item => {
                 item.addEventListener('mouseenter', function() {
                     clearTimeout(hoverTimeout);
@@ -1211,7 +1221,7 @@
             ModalManager.init();
         }
     </script>
-    
+
     @stack('page-scripts')
 </body>
 
