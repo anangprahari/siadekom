@@ -374,7 +374,7 @@
         <div class="form-container">
             <div class="text-center mb-4">
                 <h2>
-                    <i class="fas fa-boxes text-primary"></i> Form Tambah Aset
+                    <i class="fas fa-boxes text-primary"></i> Form Tambah Aset Tetap & Lainnya
                 </h2>
                 <p class="text-muted">Lengkapi formulir di bawah ini untuk menambahkan aset baru</p>
             </div>

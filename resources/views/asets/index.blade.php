@@ -1107,5 +1107,9 @@
                 font-size: 0.75rem;
             }
         }
+
+        .text-blue {
+            color: var(--blue-primary) !important;
+        }
     </style>
 @endpush

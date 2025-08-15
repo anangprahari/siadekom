@@ -220,13 +220,7 @@
                 <h2>
                     <i class="fas fa-wallet text-primary"></i> Form Tambah Aset Lancar
                 </h2>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('aset-lancars.index') }}">Aset Lancar</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Tambah</li>
-                    </ol>
-                </nav>
+                <p class="text-muted">Lengkapi formulir di bawah ini untuk menambahkan aset baru</p>
             </div>
 
             @if ($errors->any())
