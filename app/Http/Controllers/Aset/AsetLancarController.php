@@ -84,7 +84,7 @@ class AsetLancarController extends Controller
         }
 
         $rekeningUraians = RekeningUraian::orderBy('kode_rekening')->get();
-        $asetLancars = $query->orderBy('created_at', 'desc')->paginate(10);
+        $asetLancars = $query->orderBy('created_at', 'desc')->paginate(50);
 
         return view('asets.asetlancar.index', compact('asetLancars', 'rekeningUraians'));
     }

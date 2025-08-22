@@ -34,8 +34,8 @@ class AsetController extends Controller
         // Mesin pencarian
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('nama_bidang_barang', 'like', "%{$search}%")
+            $query->where(function ($q) use ($search) {                                     
+                $q->where('nama_bidang_barang', 'like', "%{$search}%")                                                                      
                     ->orWhere('nama_jenis_barang', 'like', "%{$search}%")
                     ->orWhere('kode_barang', 'like', "%{$search}%")
                     ->orWhere('register', 'like', "%{$search}%");

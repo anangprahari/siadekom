@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
 
 class UserSeeder extends Seeder
 {
@@ -13,31 +15,33 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('users')->truncate(); 
+
         $users = collect([
             [
-                'name' => 'Anang',
-                'username' => 'anangpraf',
-                'email' => 'anang123@gmail.com',
-                'password' => Hash::make('Anang12345#'),
+                'name' => 'Syafriadi',
+                'username' => 'syafriadi',
+                'email' => 'syafriadi.za@gmail.com',
+                'password' => Hash::make('Syafriadi123#'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Febry',
-                'username' => 'febritxt',
-                'email' => 'febri123@gmail.com.com',
-                'password' => Hash::make('Febri12345#'),
+                'name' => 'Ifnidawati',
+                'username' => 'ifnidawati0305',
+                'email' => 'ifnidawati0305@gmail.com',
+                'password' => Hash::make('Ifnidawati123#'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Agung',
-                'username' => 'agungyugo',
-                'email' => 'agung123@gmail.com.com',
-                'password' => Hash::make('Agung12345#'),
+                'name' => 'Desiyusmita',
+                'username' => 'desiyusmita7',
+                'email' => 'desiyusmita7@gmail.com',
+                'password' => Hash::make('Desiyusmita123#'),
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+            ],
         ]);
 
         $users->each(function ($user) {
