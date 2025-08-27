@@ -729,26 +729,26 @@
             <div class="summary-grid">
                 <div class="summary-item">
                     <div class="summary-value text-blue">
-                        {{ number_format(($totalAsetTetap ?? 0) + ($totalAsetLainnya ?? 0) + ($totalAsetLancar ?? 0)) }}
+                        {{ format_number_id(($totalAsetTetap ?? 0) + ($totalAsetLainnya ?? 0) + ($totalAsetLancar ?? 0)) }}
                     </div>
                     <div class="summary-label">Total Semua Aset</div>
                 </div>
                 <div class="summary-item">
                     <div class="summary-value text-green">
                         Rp
-                        {{ number_format(($nilaiTotalAsetTetap ?? 0) + ($nilaiTotalAsetLainnya ?? 0) + ($nilaiSaldoAkhirTotal ?? 0), 0, ',', '.') }}
+                        {{ format_number_id(($nilaiTotalAsetTetap ?? 0) + ($nilaiTotalAsetLainnya ?? 0) + ($nilaiSaldoAkhirTotal ?? 0)) }}
                     </div>
                     <div class="summary-label">Total Nilai Aset</div>
                 </div>
                 <div class="summary-item">
                     <div class="summary-value text-purple">
-                        {{ number_format(($asetBaik ?? 0) + ($asetLainnyaBaik ?? 0)) }}
+                        {{ format_number_id(($asetBaik ?? 0) + ($asetLainnyaBaik ?? 0)) }}
                     </div>
                     <div class="summary-label">Aset Kondisi Baik</div>
                 </div>
                 <div class="summary-item">
                     <div class="summary-value text-orange">
-                        {{ number_format(($asetKurangBaik ?? 0) + ($asetRusakBerat ?? 0) + ($asetLainnyaKurangBaik ?? 0) + ($asetLainnyaRusakBerat ?? 0)) }}
+                        {{ format_number_id(($asetKurangBaik ?? 0) + ($asetRusakBerat ?? 0) + ($asetLainnyaKurangBaik ?? 0) + ($asetLainnyaRusakBerat ?? 0)) }}
                     </div>
                     <div class="summary-label">Aset Bermasalah</div>
                 </div>
@@ -826,7 +826,7 @@
                         </div>
                     </div>
                     <div class="stat-title">Total Aset Tetap</div>
-                    <div class="stat-value">{{ number_format($totalAsetTetap ?? 0) }}</div>
+                    <div class="stat-value">{{ format_number_id($totalAsetTetap ?? 0) }}</div>
                     <div class="stat-description">
                         <span class="stat-trend positive">
                             <i class="fas fa-plus"></i>
@@ -845,7 +845,7 @@
                         </div>
                     </div>
                     <div class="stat-title">Nilai Aset Tetap</div>
-                    <div class="stat-value">Rp {{ number_format($nilaiTotalAsetTetap ?? 0, 0, ',', '.') }}</div>
+                    <div class="stat-value">Rp {{ format_number_id($nilaiTotalAsetTetap ?? 0, 0, ',', '.') }}</div>
                     <div class="stat-description">Total nilai investasi</div>
                 </div>
             </div>
@@ -858,7 +858,7 @@
                         </div>
                     </div>
                     <div class="stat-title">Aset Tetap Kondisi Baik</div>
-                    <div class="stat-value">{{ number_format($asetBaik ?? 0) }}</div>
+                    <div class="stat-value">{{ format_number_id($asetBaik ?? 0) }}</div>
                     <div class="stat-description">Kondisi baik dan berfungsi</div>
                 </div>
             </div>
@@ -871,7 +871,7 @@
                         </div>
                     </div>
                     <div class="stat-title">Aset Tetap Bermasalah</div>
-                    <div class="stat-value">{{ number_format(($asetKurangBaik ?? 0) + ($asetRusakBerat ?? 0)) }}</div>
+                    <div class="stat-value">{{ format_number_id(($asetKurangBaik ?? 0) + ($asetRusakBerat ?? 0)) }}</div>
                     <div class="stat-description">
                         KB: {{ $asetKurangBaik ?? 0 }} | RB: {{ $asetRusakBerat ?? 0 }}
                     </div>
@@ -887,7 +887,7 @@
                         </div>
                     </div>
                     <div class="stat-title">Total Aset Lainnya</div>
-                    <div class="stat-value">{{ number_format($totalAsetLainnya ?? 0) }}</div>
+                    <div class="stat-value">{{ format_number_id($totalAsetLainnya ?? 0) }}</div>
                     <div class="stat-description">
                         <span class="stat-trend positive">
                             <i class="fas fa-plus"></i>
@@ -906,7 +906,7 @@
                         </div>
                     </div>
                     <div class="stat-title">Nilai Aset Lainnya</div>
-                    <div class="stat-value">Rp {{ number_format($nilaiTotalAsetLainnya ?? 0, 0, ',', '.') }}</div>
+                    <div class="stat-value">Rp {{ format_number_id($nilaiTotalAsetLainnya ?? 0, 0, ',', '.') }}</div>
                     <div class="stat-description">Total nilai aset lainnya</div>
                 </div>
             </div>
@@ -919,7 +919,7 @@
                         </div>
                     </div>
                     <div class="stat-title">Aset Lainnya Kondisi Baik</div>
-                    <div class="stat-value">{{ number_format($asetLainnyaBaik ?? 0) }}</div>
+                    <div class="stat-value">{{ format_number_id($asetLainnyaBaik ?? 0) }}</div>
                     <div class="stat-description">Kondisi baik dan berfungsi</div>
                 </div>
             </div>
@@ -933,7 +933,7 @@
                     </div>
                     <div class="stat-title">Aset Lainnya Bermasalah</div>
                     <div class="stat-value">
-                        {{ number_format(($asetLainnyaKurangBaik ?? 0) + ($asetLainnyaRusakBerat ?? 0)) }}</div>
+                        {{ format_number_id(($asetLainnyaKurangBaik ?? 0) + ($asetLainnyaRusakBerat ?? 0)) }}</div>
                     <div class="stat-description">
                         KB: {{ $asetLainnyaKurangBaik ?? 0 }} | RB: {{ $asetLainnyaRusakBerat ?? 0 }}
                     </div>
@@ -949,7 +949,7 @@
                         </div>
                     </div>
                     <div class="stat-title">Total Aset Lancar</div>
-                    <div class="stat-value">{{ number_format($totalAsetLancar ?? 0) }}</div>
+                    <div class="stat-value">{{ format_number_id($totalAsetLancar ?? 0) }}</div>
                     <div class="stat-description">Total item aset lancar</div>
                 </div>
             </div>
@@ -962,7 +962,7 @@
                         </div>
                     </div>
                     <div class="stat-title">Saldo Akhir Total</div>
-                    <div class="stat-value">Rp {{ number_format($nilaiSaldoAkhirTotal ?? 0, 0, ',', '.') }}</div>
+                    <div class="stat-value">Rp {{ format_number_id($nilaiSaldoAkhirTotal ?? 0, 0, ',', '.') }}</div>
                     <div class="stat-description">Total nilai saldo akhir</div>
                 </div>
             </div>
@@ -975,7 +975,7 @@
                         </div>
                     </div>
                     <div class="stat-title">Total Pengguna</div>
-                    <div class="stat-value">{{ number_format($totalPengguna ?? 0) }}</div>
+                    <div class="stat-value">{{ format_number_id($totalPengguna ?? 0) }}</div>
                     <div class="stat-description">
                         <span class="stat-trend positive">
                             <i class="fas fa-plus"></i>

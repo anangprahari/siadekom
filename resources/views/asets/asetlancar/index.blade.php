@@ -310,22 +310,22 @@
                                     <!-- Saldo Awal -->
                                     <td class="text-center" style="background-color: #f8fdff;">
                                         <span
-                                            class="badge bg-blue text-white fw-bold">{{ number_format($aset->saldo_awal_unit) }}</span>
+                                            class="badge bg-blue text-white fw-bold">{{ format_number_id($aset->saldo_awal_unit) }}</span>
                                     </td>
                                     <td class="text-end" style="background-color: #f8fdff;">
                                         <div class="fw-medium font-mono">
-                                            {{ 'Rp ' . number_format($aset->saldo_awal_harga_satuan, 0) }}</div>
+                                            {{ format_rupiah($aset->saldo_awal_harga_satuan, 0) }}</div>
                                     </td>
                                     <td class="text-end" style="background-color: #f8fdff;">
                                         <div class="fw-bold text-blue font-mono">
-                                            {{ 'Rp ' . number_format($aset->saldo_awal_total, 0) }}</div>
+                                            {{ format_rupiah($aset->saldo_awal_total, 0) }}</div>
                                     </td>
 
                                     <!-- Mutasi -->
                                     <td class="text-center" style="background-color: #f0fdf4;">
                                         @if ($aset->mutasi_tambah_unit > 0)
                                             <span
-                                                class="badge bg-success text-white fw-bold">+{{ number_format($aset->mutasi_tambah_unit) }}</span>
+                                                class="badge bg-success text-white fw-bold">+{{ format_number_id($aset->mutasi_tambah_unit) }}</span>
                                         @else
                                             <span class="text-muted">-</span>
                                         @endif
@@ -333,7 +333,7 @@
                                     <td class="text-end" style="background-color: #f0fdf4;">
                                         @if ($aset->mutasi_tambah_harga_satuan > 0)
                                             <div class="fw-medium font-mono text-success">
-                                                {{ 'Rp ' . number_format($aset->mutasi_tambah_harga_satuan, 0) }}</div>
+                                                {{ format_rupiah($aset->mutasi_tambah_harga_satuan, 0) }}</div>
                                         @else
                                             <span class="text-muted">-</span>
                                         @endif
@@ -341,7 +341,7 @@
                                     <td class="text-end" style="background-color: #f0fdf4;">
                                         @if ($aset->mutasi_tambah_nilai_total > 0)
                                             <div class="fw-bold text-success font-mono">
-                                                {{ 'Rp ' . number_format($aset->mutasi_tambah_nilai_total, 0) }}</div>
+                                                {{ format_rupiah($aset->mutasi_tambah_nilai_total, 0) }}</div>
                                         @else
                                             <span class="text-muted">-</span>
                                         @endif
@@ -349,7 +349,7 @@
                                     <td class="text-center" style="background-color: #f0fdf4;">
                                         @if ($aset->mutasi_kurang_unit > 0)
                                             <span
-                                                class="badge bg-danger text-white fw-bold">-{{ number_format($aset->mutasi_kurang_unit) }}</span>
+                                                class="badge bg-danger text-white fw-bold">-{{ format_number_id($aset->mutasi_kurang_unit) }}</span>
                                         @else
                                             <span class="text-muted">-</span>
                                         @endif
@@ -357,7 +357,7 @@
                                     <td class="text-end" style="background-color: #f0fdf4;">
                                         @if ($aset->mutasi_kurang_nilai_total > 0)
                                             <div class="fw-bold text-danger font-mono">
-                                                {{ 'Rp ' . number_format($aset->mutasi_kurang_nilai_total, 0) }}</div>
+                                                {{ format_rupiah($aset->mutasi_kurang_nilai_total, 0) }}</div>
                                         @else
                                             <span class="text-muted">-</span>
                                         @endif
@@ -366,11 +366,11 @@
                                     <!-- Saldo Akhir -->
                                     <td class="text-center" style="background-color: #fffbeb;">
                                         <span
-                                            class="badge bg-warning text-white fw-bold">{{ number_format($aset->saldo_akhir_unit) }}</span>
+                                            class="badge bg-warning text-white fw-bold">{{ format_number_id($aset->saldo_akhir_unit) }}</span>
                                     </td>
                                     <td class="text-end" style="background-color: #fffbeb;">
                                         <div class="fw-bold text-warning font-mono">
-                                            {{ 'Rp ' . number_format($aset->saldo_akhir_total, 0) }}</div>
+                                            {{ format_rupiah($aset->saldo_akhir_total, 0) }}</div>
                                     </td>
 
                                     <td>
@@ -428,21 +428,21 @@
                         </tbody>
                         <tfoot class="bg-blue-lt">
                             <tr>
-                                <th colspan="8" class="text-end fw-bold text-blue">Total Keseluruhan:</th>
+                                <th colspan="7" class="text-end fw-bold text-blue">Total Keseluruhan:</th>
                                 <th class="text-end fw-bold text-blue">
-                                    {{ 'Rp ' . number_format($asetLancars->sum('saldo_awal_total'), 0) }}
+                                    {{ format_rupiah($asetLancars->sum('saldo_awal_total'), 0) }}
                                 </th>
                                 <th colspan="2"></th>
                                 <th class="text-end fw-bold text-success">
-                                    {{ 'Rp ' . number_format($asetLancars->sum('mutasi_tambah_nilai_total'), 0) }}
+                                    {{ format_rupiah($asetLancars->sum('mutasi_tambah_nilai_total'), 0) }}
                                 </th>
                                 <th></th>
                                 <th class="text-end fw-bold text-danger">
-                                    {{ 'Rp ' . number_format($asetLancars->sum('mutasi_kurang_nilai_total'), 0) }}
+                                    {{ format_rupiah($asetLancars->sum('mutasi_kurang_nilai_total'), 0) }}
                                 </th>
                                 <th></th>
                                 <th class="text-end fw-bold text-warning">
-                                    {{ 'Rp ' . number_format($asetLancars->sum('saldo_akhir_total'), 0) }}
+                                    {{ format_rupiah($asetLancars->sum('saldo_akhir_total'), 0) }}
                                 </th>
                                 <th></th>
                             </tr>

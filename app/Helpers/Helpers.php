@@ -34,6 +34,34 @@ if (!function_exists('format_currency')) {
     }
 }
 
+if (!function_exists('format_rupiah')) {
+    /**
+     * Format angka ke format Rupiah Indonesia dengan titik sebagai pemisah ribuan
+     *
+     * @param float|int $number
+     * @param int $decimals
+     * @return string
+     */
+    function format_rupiah($number, $decimals = 0)
+    {
+        return 'Rp ' . number_format($number, $decimals, ',', '.');
+    }
+}
+
+if (!function_exists('format_number_id')) {
+    /**
+     * Format angka dengan titik sebagai pemisah ribuan (format Indonesia)
+     *
+     * @param float|int $number
+     * @param int $decimals
+     * @return string
+     */
+    function format_number_id($number, $decimals = 0)
+    {
+        return number_format($number, $decimals, ',', '.');
+    }
+}
+
 if (!function_exists('make_reference_id')) {
     function make_reference_id($prefix, $number)
     {
